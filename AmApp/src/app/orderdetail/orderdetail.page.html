@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar text-center>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <h1 text-center class="aaa">รายละเอียดการสั่งซื้อ</h1>
+  <div *ngIf="dataOrder != null">
+    <ion-card>
+      <ion-item lines="none">
+        <ion-label class="font">รหัสการสั่งซื้อ : {{dataOrder.idReceipt}}</ion-label>
+      </ion-item>
+
+      <ion-item lines="none" *ngIf="showDataOrderAdd == true" (click)="showDataOrder()">
+        <ion-col>
+          <ion-label class="text">ข้อมูลการสั่งซื้อ</ion-label>
+        </ion-col>
+        <ion-col text-right>
+          <ion-icon class="icon" size="large" name="arrow-dropdown" md="md-arrow-dropdown"></ion-icon>   
+        </ion-col>
+      </ion-item>
+
+      <ion-item lines="none" *ngIf="showDataOrderRemove == false" (click)="closeDataOrder()">
+        <ion-col >
+          <ion-label class="text">ข้อมูลการสั่งซื้อ</ion-label>
+        </ion-col>
+        <ion-col text-right>          
+          <ion-icon size="large" name="arrow-dropup" md="md-arrow-dropup"></ion-icon>
+        </ion-col>
+      </ion-item>
+
+      <div *ngIf="isShowDataOrder == false">
+        <ion-row class="bg-item" *ngFor="let a of dataOrder.dataOrder">
+          <ion-col>
+            <ion-item lines="none" color="light"  (click)="test(dataOrder.idReceipt,a.idProduct)">
+              <ion-label  class="font">รหัสรายการสินค้า : {{a.idProduct}} </ion-label>              
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <ion-item lines="none">
+        <ion-label  class="font">วันที่สั่งซื้อ : {{dataOrder.date}}</ion-label>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label  class="font">วันที่รับสินค้า : {{dataOrder.sendDate}}</ion-label>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label  class="font">หลักฐานการโอนเงิน : {{dataOrder.statusFile}}</ion-label>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label  class="font">สถานะ : {{dataOrder.status}}</ion-label>
+      </ion-item>
+
+
+    </ion-card>
+    <ion-card *ngIf="dataOrder.status == 'รับสั่งซื้อ' && dataOrder.file == 'ไม่พบไฟล์'">
+      <ion-card-content>
+        <ion-label><b>แนบหลักฐานการโอนเงิน</b></ion-label>
+        <app-upload></app-upload>
+        <ion-button  shape="round" (click)="alertAddFile(dataOrder.idReceipt)">ยืนยันการแนบหลักฐานการโอนเงิน
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+
+
+
+
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-content>
+
+
+  <div class="limiter">
+    <div class="container-login">
+      <div class="wrap-login">
+
+
+        <form class="login-from" [formGroup]="user" (ngSubmit)="gotoList()">
+
+
+
+          <span class="login-from-title">Login </span>
+
+
+          <div class="wrap-input">
+
+            <ion-input class="input100" type="text" placeholder="Username" formControlName="user"></ion-input>
+            <span class="focus-input"></span>
+            <span class="symbol-input100"></span>
+          </div>
+          <div class="wrap-input">
+            <ion-input class="input100" type="password" placeholder="Password" formControlName="password"></ion-input>
+
+          </div>
+          <div class="container-button">
+            <ion-button class="hover" type="submit">เข้าสู่ระบบ</ion-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>

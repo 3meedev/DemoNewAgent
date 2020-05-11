@@ -1,0 +1,47 @@
+<ion-app>
+  <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+
+  <ion-split-pane disabled="true">
+
+    <ion-menu type="overlay">
+      <ion-header>
+        <ion-toolbar text-center class="a">
+          <p style="color: red;">Menu</p>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines="none">
+              <ion-icon slot="start" [name]="p.icon" ></ion-icon>
+              <ion-label style="font-family: Prompt;">
+                {{p.title}}
+              </ion-label>
+
+            </ion-item>
+
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <ion-footer text-center>
+        <ion-row text-center>
+          <ion-col>
+            <ion-label>
+              <b>ยินดีตอนรับ : </b>{{callApi.name}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-menu-toggle>
+         
+            <fa-icon (click)="logout()"  [icon]="faSignOutAlt"></fa-icon>
+           
+        
+        </ion-menu-toggle>
+      </ion-footer>
+
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+
+</ion-app>

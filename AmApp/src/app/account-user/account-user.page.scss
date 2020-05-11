@@ -1,0 +1,31 @@
+.ready{
+    color: green;
+}
+.no{
+    color:red;
+}
+.icon{
+    width: 30px;
+    height: 30px;
+    margin: auto;
+}
+.modal-wrapper {
+    --width: 60%;
+    --height: 70%;
+  }
+  .aaa{
+    background: -webkit-linear-gradient(#3f90d3, #d43f8d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.font{
+    font-family: Prompt,Poppins-Regular;
+
+}
+.bbb{
+    --background-color: hue($color: #228fb9);
+}
+.abc{
+    font-family: Prompt,Poppins-Regular;
+
+}

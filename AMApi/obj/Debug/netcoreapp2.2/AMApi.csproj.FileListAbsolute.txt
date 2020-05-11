@@ -1,0 +1,14 @@
+D:\ProjectAM\AMApi\bin\Debug\netcoreapp2.2\AMApi.deps.json
+D:\ProjectAM\AMApi\bin\Debug\netcoreapp2.2\AMApi.runtimeconfig.json
+D:\ProjectAM\AMApi\bin\Debug\netcoreapp2.2\AMApi.runtimeconfig.dev.json
+D:\ProjectAM\AMApi\bin\Debug\netcoreapp2.2\AMApi.dll
+D:\ProjectAM\AMApi\bin\Debug\netcoreapp2.2\AMApi.pdb
+D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.csprojAssemblyReference.cache
+D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.csproj.CoreCompileInputs.cache
+D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.RazorAssemblyInfo.cache
+D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.RazorAssemblyInfo.cs
+D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.AssemblyInfoInputs.cache
+D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.AssemblyInfo.cs
+D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.RazorTargetAssemblyInfo.cache
+D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.dll
+D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.pdb

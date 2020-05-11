@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="dark" text-center>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>แก้ไขการล้างสินค้า</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content><br>
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="dataClear" (ngSubmit)="log()">
+        <ion-item >
+          <ion-label>ชื่อสินค้า : </ion-label>
+          <ion-input disabled readonly placeholder="{{ name }}" formControlName="nameProduct"  [(ngModel)]="dataIdProduct">            
+          </ion-input>
+        </ion-item>
+        
+        <ion-item *ngIf="dataIdProduct != null">
+          <ion-label>รหัสสินค้า :</ion-label>
+          <ion-input disabled readonly placeholder="{{ id }}"></ion-input>
+          
+        </ion-item>
+
+        <ion-item *ngIf="dataIdProduct == null">
+          <ion-label>รหัสสินค้า :</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>จำนวนนำเข้า</ion-label>
+          <ion-input placeholder="จำนวนนำเข้า">
+          </ion-input>
+        </ion-item>       
+
+        <ion-item>
+          <ion-label>จำนวนขาย</ion-label>
+          <ion-input placeholder="จำนวนขาย" readonly>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>คงเหลือ</ion-label>
+          <ion-input placeholder="คงเหลือ" readonly>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>สถานะ</ion-label>
+          <ion-select formControlName="statusProduct" placeholder="- กรุณาเลือกสถานะ -">
+            <ion-select-option value="สินค้าครบ">สินค้าครบ</ion-select-option>
+            <ion-select-option value="สินค้าตกหล่น">สินค้าตกหล่น</ion-select-option>
+            <ion-select-option value="สินค้าเกิน">สินค้าเกิน</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="full" color="dark" type="submit">แก้ไขสินค้า</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content><br>

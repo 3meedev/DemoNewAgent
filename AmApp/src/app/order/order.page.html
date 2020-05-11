@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar  text-center>
+
+    <ion-buttons slot="start" (click)="gotolist()">
+      <ion-icon name="arrow-back" class="icon"></ion-icon>
+    </ion-buttons>
+    
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="order"(ngSubmit)="AddList(data,amountp)">
+  <h4 class="h1" text-center>สั่งซื้อ</h4>
+
+  <ion-card>
+  <ion-item lines="none">
+    <ion-label class="font">ชื่อสินค้า :</ion-label>
+    <ion-select formControlName="nameProduct" [(ngModel)]="data" placeholder="เลือกสินค้า" (ionChange)="onChange(data)"  interface="action-sheet">
+      <ion-select-option *ngFor="let item of dataProduct" value="{{ item.nameProduct }}" >{{item.nameProduct}}  </ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-card>
+<ion-card>
+  <ion-item lines="none">
+    <ion-label class="font">รหัสสินค้า : </ion-label>
+    <ion-input class="font" formControlName="idProduct"  *ngIf="data1 != null" [(ngModel)]="data1.idProduct" readonly>
+    </ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label class="font">จำนวนสินค้าคงเหลือ :</ion-label>
+    <ion-input class="font" *ngIf="data1 != null"  [(ngModel)]="data1.totalProduct" formControlName="totalProduct" readonly >
+    </ion-input>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label class="font">จำนวนสินค้า :</ion-label>
+    <ion-input  class="font" formControlName="amountProduct" (ionChange)="amount(amountp)"[(ngModel)]="amountp"placeholder="กรอกจำนวนสินค้า"*ngIf="data != null && checkTotal == 0 && checkTotalProduct != '0'" clearInput >
+    </ion-input>
+  </ion-item>
+  <div *ngIf="isShowValidateamountProduct == true">
+    <ion-label color="danger" class="font">* กรุณากรอกจำนวนสินค้า !!</ion-label>
+  </div>   
+  
+  <ion-item lines="none">
+    <ion-label class="font">ราคารวม : </ion-label>
+    <ion-input class="font" *ngIf="data != null && checkTotal == 0 && checkTotalProduct != '0'" placeholder="ราคารวม" formControlName="priceOrder"[(ngModel)]="sum" readonly></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label class="font">ชื่อ : </ion-label>
+    <ion-input class="font" *ngIf="data != null && checkTotal == 0 && checkTotalProduct != '0'" placeholder="ชื่อ" formControlName="nameUser" [(ngModel)]="nameNG" readonly></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label class="font" >ที่อยู่ : </ion-label>
+    <ion-input  class="font"*ngIf="data != null && checkTotal == 0 && checkTotalProduct != '0'"  placeholder="ที่อยู่" formControlName="addressUser" [(ngModel)]="addressNG"  readonly></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label class="font">เบอร์โทร : </ion-label>
+    <ion-input class="font" *ngIf="data != null && checkTotal == 0 && checkTotalProduct != '0'"  placeholder="เบอร์โทร" formControlName="telUser" [(ngModel)]="telNG" readonly></ion-input>
+  </ion-item><br>
+  <ion-button *ngIf="amountp != null" type="submit"  class="button" expand="block">เพิ่มลงลิสต์รายการ</ion-button>
+  <ion-button *ngIf="amountp == null" type="submit" color="dark" disabled class="button" expand="block">เพิ่มลงลิสต์รายการ</ion-button>
+</ion-card>
+<ion-card>
+  <ion-card-content>
+    <ion-row text-center style="border-bottom:groove">
+      <ion-col>
+        <ion-label><b>ลิสต์รายการสินค้า</b></ion-label>
+      </ion-col>
+    </ion-row>    
+    <ion-row text-center>
+      <ion-col size="2"> 
+        <ion-label><b>รหัสสินค้า</b></ion-label>
+      </ion-col>
+      <ion-col size="4">
+        <ion-label><b>ชื่อสินค้า</b></ion-label>
+      </ion-col>
+      <ion-col size="2">
+        <ion-label><b>จำนวน</b></ion-label>
+      </ion-col>
+      <ion-col size="2">
+        <ion-label><b>ราคา</b></ion-label>
+      </ion-col>
+      <ion-col size="2">
+        <ion-label><b>ลบรายการ</b></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row text-center *ngFor="let a of dataReceipt.dataOrder">
+      <ion-col class="text" size="2">
+        <ion-label class="font">{{a.idProduct}}</ion-label>
+      </ion-col>
+      <ion-col class="text" size="4">
+        <ion-label class="font">{{a.nameProduct}}</ion-label>
+      </ion-col>
+      <ion-col class="text" size="2">
+        <ion-label class="font">{{a.amountProduct}}</ion-label>
+      </ion-col>
+      <ion-col class="text" size="2">
+        <ion-label class="font">{{a.priceOrder}}</ion-label>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon size="large"  color="danger" name="close-circle" md="md-close-circle" (click)="PopList(a.idProduct)"></ion-icon>
+      </ion-col>
+    </ion-row>       
+    <ion-row *ngIf="lengthData != 0" text-center style="border-top: groove;">
+      <ion-col size="6">
+        <ion-label><b>รวม</b></ion-label>
+      </ion-col>
+      <ion-col size="2">
+        {{sumAmount}}
+      </ion-col>
+      <ion-col size="2">
+        {{sumPrice}}
+      </ion-col>
+      <ion-col size="2">
+        <ion-label (click)="clear()"><u>ล้างข้อมูล</u></ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+  <ion-button (click)="addReceipt()" *ngIf="lengthData == 0" disabled color="dark" class="button" expand="block">ยืนยันการเพิ่มรายการ</ion-button>
+  <ion-button (click)="addReceipt()" *ngIf="lengthData != 0"  class="button" expand="block">ยืนยันการเพิ่มรายการ</ion-button>
+</ion-card>
+
+
+
+</form>
+
+
+</ion-content>

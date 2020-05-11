@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar text-center>
+    <ion-title class="aaa">แก้ไขบัญชีผู้ใช้</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+
+    <form [formGroup]="dataUser" (ngSubmit)="log()" class="font">
+      <ion-item [class.invalid]="submit && f.username.errors" lines="none">
+        <ion-label><b>ชื่อผู้ใช้</b></ion-label>
+        <ion-input class="font" placeholder="ชื่อผู้ใช้" formControlName="username"></ion-input>
+      </ion-item>
+      <ion-item [class.invalid]="submit && f.cardUser.errors" lines="none">
+        <ion-label><b>รหัสบัตรประชาชน</b></ion-label>
+        <ion-input class="font" placeholder="รหัสบัตรประชาชน" formControlName="cardUser"></ion-input>
+      </ion-item>
+      <ion-item [class.invalid]="submit && f.nameUser.errors" lines="none">
+        <ion-label><b>ชื่อ-นามสกุลผู้ใช้</b></ion-label>
+        <ion-input class="font" placeholder="ชื่อ-นามสกุล" formControlName="nameUser"></ion-input>
+      </ion-item>
+      <ion-item [class.invalid]="submit && f.addressUser.errors" lines="none">
+        <ion-label><b>ที่อยู่</b></ion-label>
+        <ion-input class="font" placeholder="ที่อยู่" formControlName="addressUser"></ion-input>
+      </ion-item>
+      <ion-item [class.invalid]="submit && f.telUser.errors" lines="none">
+        <ion-label><b>เบอร์โทรศัพท์</b></ion-label>
+        <ion-input class="font" placeholder="เบอร์โทรศัพท์" formControlName="telUser"></ion-input>
+      </ion-item>
+    </form>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" (click)="log()">เพิ่มข้อมูลสมาชิก</ion-button>
+
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" color="danger" (click)="close()">ย้อนกลับ</ion-button>
+    </ion-col>
+
+  </ion-row>
+
+</ion-footer>

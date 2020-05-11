@@ -1,0 +1,131 @@
+<ion-header style="padding-bottom: 6px;">
+  <ion-toolbar text-center >
+    <ion-button slot="start" fill="clear">
+      <ion-menu-button></ion-menu-button>
+ </ion-button>
+    <ion-button fill="clear" slot="end" [routerLink]="['/adduser']">
+      <ion-label>
+        <h2><b class="colorA">เพิ่มผู้ดูแล</b></h2>
+      </ion-label>
+    </ion-button>
+    <ion-button fill="clear" slot="end" [routerLink]="['/addusernotadmin']">
+      <ion-label>
+        <h2><b class="colorB">เพิ่มสมาชิก</b></h2>
+      </ion-label>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  
+  <ion-grid >
+    <ion-row>
+     <ion-col>
+
+     
+
+        <ion-card class="cardborder">
+          <ion-card-header (click)="showcontentAdmin()" text-center>
+
+            <ion-row>              
+              <ion-col>
+              </ion-col>
+              <ion-col>
+                <ion-label>
+                  <h2><b class="colorA">ผู้ดูแลระบบ</b></h2>
+                </ion-label>
+              </ion-col>
+              <ion-col text-right>
+                <ion-icon *ngIf="isShowAdmin == true" name="add" md="md-add" size="large"></ion-icon>
+                <ion-icon *ngIf="isShowAdmin == false" name="remove" md="md-remove" size="large">
+                </ion-icon>
+              </ion-col>
+            </ion-row>
+            
+          </ion-card-header>
+          <ion-card-content  *ngIf="isShowAdmin == false">
+            
+            <ion-row text-center >
+               <table class="fixed_header">
+                <thead>  
+                  <th>ชื่อผู้ใช้</th>
+                  <th>ชื่อผู้ดูแล</th>
+                  <th>เบอร์โทร</th>
+                  <th>ระดับ</th>
+                  <th>แก้ไข</th>
+                </thead>
+                  <tbody>
+                  <tr *ngFor="let u of dataAdminAll">
+                    <td>{{u.usernameAdmin}}</td>
+                    <td> {{u.nameAdmin}}</td>
+                    <td> {{u.telAdmin}}</td>
+                    <td>   {{u.levelAdmin}}</td>
+                    
+                    <td><ion-button fill="clear" color="warning"(click)="EditDataAdmin(u.idAdmin)"> <ion-icon name="create"></ion-icon></ion-button>
+                        <ion-button fill="clear" color="danger" (click)="ConfirmDeleteAdmin(u.idAdmin)"> <ion-icon name="trash"></ion-icon></ion-button>  
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ion-row>
+          </ion-card-content>
+        </ion-card></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+
+      
+        <ion-card class="cardborder">
+          <ion-card-header (click)="showcontentUser()" class="header-user" text-center>
+            <ion-row>
+              <ion-col></ion-col>
+              <ion-col class="header-content">
+                <ion-label>
+                  <h2><b class="colorB">สมาชิก</b></h2>
+                </ion-label>
+              </ion-col>
+              <ion-col text-right>
+                <ion-icon *ngIf="isShowUser == true" name="add" md="md-add" size="large"></ion-icon>
+                <ion-icon *ngIf="isShowUser == false" name="remove" md="md-remove" class="icon-right" size="large">
+                </ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content  *ngIf="isShowUser == false">
+            
+
+            <ion-row text-center >
+              <table class="fixed_header">
+                <thead>  
+                  <th>ชื่อผู้ใช้</th>
+                  <th>ชื่อผู้ดูแล</th>
+                  <th>เบอร์โทร</th>
+                  <th>สถานะ</th>
+                  <th>แก้ไข</th>
+                </thead>
+                  <tbody>
+                  <tr *ngFor="let u of dataUserAll">
+                    <td>  {{u.username}}</td>
+                    <td> {{u.nameUser}}</td>
+                    <td>  {{u.telUser}}</td>
+                    <td>    {{u.statusUser}}</td>
+                    
+                    <td><ion-button fill="clear" color="warning" (click)="EditDataUser(u.idUser)"> <ion-icon name="create"></ion-icon></ion-button>
+                        <ion-button fill="clear" color="danger"  (click)="ConfirmDeleteUser(u.idUser)"> <ion-icon name="trash"></ion-icon></ion-button>  
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+     </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

@@ -1,0 +1,170 @@
+<ion-header>
+  <ion-toolbar text-center>
+    <ion-button slot="start" fill="clear">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+    <ion-grid>
+      <ion-row>
+
+        <ion-col size="2" class="ion-align-self-start" style="padding-bottom: 0;padding-top: 0;">
+
+          <label> รายการ</label>
+          <select (ionChange)="onChange(data)" [(ngModel)]="data">
+            <option value="ทั้งหมด" selected>ทั้งหมด</option>
+            <option value="สั่งซื้อ">สั่งซื้อ</option>
+            <option value="รับสั่งซื้อ">รับสั่งซื้อ</option>
+            <option value="ส่งสินค้า">ส่งสินค้า</option>
+            <option value="ยกเลิก">ยกเลิก</option>
+            <option value="ได้รับแล้ว">ได้รับแล้ว</option>
+
+          </select>
+
+        </ion-col>
+        <ion-col size="2">
+
+
+
+          <ion-select placeholder="เลือกรายการที่ต้องการ" (ionChange)="onChange(data)" [(ngModel)]="data">
+            <ion-select-option>ทั้งหมด</ion-select-option>
+            <ion-select-option value="สั่งซื้อ">สั่งซื้อ</ion-select-option>
+            <ion-select-option value="รับสั่งซื้อ">รับ Order แล้ว</ion-select-option>
+            <ion-select-option value="ส่งสินค้า">ส่งสินค้าแล้ว</ion-select-option>
+            <ion-select-option value="ยกเลิก">ยกเลิก</ion-select-option>
+            <ion-select-option value="ได้รับแล้ว">ได้รับสินค้าแล้ว</ion-select-option>
+
+          </ion-select>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-button fill="clear" slot='end' [routerLink]="['/order']">สั่งซื้อ</ion-button>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="content" text-center>
+
+
+  <ion-card class="cardborder">
+    <ion-card-header>
+      <ion-row>
+        <ion-col>
+          <ion-label>
+            <h2><b class="colorA">รายการ</b></h2>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+
+
+
+    <ion-row text-center>
+      <table class="fixed_header">
+        <thead>
+          <th>รหัสออเดอร์</th>
+          <th>วันที่</th>
+          <th>หลักฐานการโอนเงิน</th>
+          <th>สถานะ</th>
+          <th>แก้ไข</th>
+        </thead>
+        <!-- <ion-col>
+      <ion-label><b>รหัสออเดอร์</b></ion-label>
+    </ion-col>
+
+    
+
+    <ion-col>
+      <ion-label><b>วันที่</b></ion-label>
+    </ion-col>
+
+    <ion-col>
+      <ion-label><b>หลักฐานการโอนเงิน</b></ion-label>
+    </ion-col>
+
+    <ion-col>
+      <ion-label><b>สถานะ</b></ion-label>
+    </ion-col> -->
+
+
+        <!-- 
+        <div *ngIf="isShowText == true" text-center>
+          <br>
+          <ion-label>
+            <h1><b>ไม่มีรายการสินค้า</b></h1>
+          </ion-label>
+        </div> -->
+
+        <tbody>
+          <tr *ngFor="let a of DataReceipt | paginate: { itemsPerPage: 8, currentPage: p }">
+            <td>{{a.idReceipt}}</td>
+            <td>{{a.date}}</td>
+            <td> {{a.statusFile}}</td>
+            <td> {{a.status}}</td>
+
+            <td>
+              <ion-button (click)="openModal(a.idReceipt)">รายละเอียดสินค้า</ion-button>
+              <ion-button color="secondary" (click)="okorder(a.idReceipt)" *ngIf="a.status == 'สั่งซื้อ'" class="a">
+                รับคำสั่งซื้อ</ion-button>
+              <ion-button color="success" disabled *ngIf="a.status == 'รับสั่งซื้อ' && a.statusFile == 'ไม่พบไฟล์'"
+                class="a">รับสั่งซื้อ</ion-button>
+              <ion-button color="success" (click)="sendorder(a.idReceipt)"
+                *ngIf="a.status == 'รับสั่งซื้อ' && a.statusFile != 'ไม่พบไฟล์'" class="a">รับสั่งซื้อ</ion-button>
+              <ion-button color="danger" (click)="cancel(a.idReceipt)" *ngIf="a.status == 'ยกเลิก'" class="a">ยกเลิก
+              </ion-button>
+              <ion-button color="warning" disabled (click)="sendorder(a.idReceipt)" *ngIf="a.status == 'ส่งสินค้า'"
+                class="a">ส่งสินค้า</ion-button>
+              <ion-button color="dark" disabled (click)="sendorder(a.idReceipt)" *ngIf="a.status == 'ได้รับแล้ว'"
+                class="a">ได้รับแล้ว</ion-button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- <ion-row  *ngFor="let a of DataReceipt | paginate: { itemsPerPage: 8, currentPage: p }" text-center style="border-bottom: groove">
+    <ion-col  class="co">
+      <ion-label>{{a.idReceipt}}</ion-label>
+    </ion-col >   
+    <ion-col class="co">
+      <ion-label>{{a.date}}</ion-label>
+    </ion-col>
+    <ion-col class="co">
+      <ion-label>{{a.statusFile}} </ion-label>
+    </ion-col>    
+    <ion-col class="co">
+      <ion-label>{{a.status}} </ion-label>
+    </ion-col>
+
+    
+    <ion-col class="co" >
+      
+<ion-button (click)="openModal(a.idReceipt)">รายละเอียดสินค้า</ion-button>
+        <ion-button  color="secondary" (click)="okorder(a.idReceipt)" *ngIf="a.status == 'สั่งซื้อ'" class="a">รับคำสั่งซื้อ</ion-button>
+        <ion-button  color="success" disabled *ngIf="a.status == 'รับสั่งซื้อ' && a.statusFile == 'ไม่พบไฟล์'" class="a">รับสั่งซื้อ</ion-button>     
+        <ion-button  color="success" (click)="sendorder(a.idReceipt)" *ngIf="a.status == 'รับสั่งซื้อ' && a.statusFile != 'ไม่พบไฟล์'" class="a">รับสั่งซื้อ</ion-button>  
+        <ion-button  color="danger" (click)="cancel(a.idReceipt)" *ngIf="a.status == 'ยกเลิก'" class="a">ยกเลิก</ion-button>     
+        <ion-button  color="warning"  disabled (click)="sendorder(a.idReceipt)" *ngIf="a.status == 'ส่งสินค้า'" class="a">ส่งสินค้า</ion-button> 
+        <ion-button  color="dark" disabled (click)="sendorder(a.idReceipt)" *ngIf="a.status == 'ได้รับแล้ว'" class="a">ได้รับแล้ว</ion-button> 
+    </ion-col>
+ 
+  </ion-row> -->
+    </ion-row>
+  </ion-card>
+  <br>
+  <p *ngIf="dataReturned">{{dataReturned}}</p>
+  <div class="page">
+    <ion-row>
+      <ion-col text-left>
+        <br>
+        <ion-label>จำนวนรายการสั่งซื้อ <b>{{countdata}}</b> รายการ.</ion-label>
+      </ion-col>
+      <ion-col text-right>
+        <pagination-controls (pageChange)="p = $event" previousLabel="ย้อนกลับ" maxSize="5" nextLabel="ถัดไป"
+          class="my-pagination"></pagination-controls>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

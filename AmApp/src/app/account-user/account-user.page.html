@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar text-center>
+    <ion-buttons slot="start" (click)="gotolist()">
+      <ion-icon name="arrow-back" class="icon"></ion-icon>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="datauser != null">
+    <ion-card-header text-center>
+      <ion-label >
+        <h2 class="aaa"><b>บัญชีผู้ใช้</b></h2>
+      </ion-label>
+    </ion-card-header>
+    <ion-item lines="none">
+      <b>ชื่อผู้ใช้งาน : </b>{{datauser.nameUser}}
+    </ion-item>
+    <ion-item  lines="none">
+      <b>เบอร์โทร : </b>{{datauser.telUser}}
+    </ion-item>
+    <ion-item  lines="none">
+      <b>ที่อยู่ : </b>{{datauser.addressUser}}
+    </ion-item>
+    <ion-item  lines="none" *ngIf="datauser.statusUser == 'ไม่พร้อมใช้งาน'">
+      <b>สถานะการใช้งาน :</b>&nbsp;<label class="no"> {{datauser.statusUser}}</label>
+    </ion-item>
+    <ion-item  lines="none" *ngIf="datauser.statusUser == 'พร้อมใช้งาน'">
+      <b>สถานะการใช้งาน :</b>&nbsp;<label class="ready"> {{  datauser.statusUser}}</label>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block"  (click)="modal(datauser.idUser)">
+          <fa-icon  slot="start" [icon]="faUserCircle"></fa-icon> &nbsp;
+          แก้ไขข้อมูลส่วนตัว</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block"   (click)="modalPass(datauser.idUser)">
+          <fa-icon  slot="start" [icon]="faUserLock"></fa-icon> &nbsp;เปลี่ยนรหัสผ่าน
+
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+
+
+</ion-content>

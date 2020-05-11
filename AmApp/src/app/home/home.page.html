@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar></ion-toolbar>
+  </ion-header>
+ <ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+<ion-item>
+  <ion-label >From</ion-label>
+  <ion-input [(ngModel)]="letterObj.from">{{item}}</ion-input>
+</ion-item>
+<ion-item>
+  <ion-label >to</ion-label>
+  <ion-input [(ngModel)]="letterObj.to"></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label >Text</ion-label>
+  <ion-input [(ngModel)]="letterObj.text" row="10"></ion-input>
+</ion-item>
+
+<ion-button full (click)="createPdf()">createPDF</ion-button><br>
+<ion-button full (click)="downloadPdf()" [disabled]="!pdfObj">download</ion-button>
+<ion-button full (click)="getdatafilter()" >getdata</ion-button>
+</ion-content>

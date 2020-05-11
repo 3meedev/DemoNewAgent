@@ -1,0 +1,29 @@
+
+.upload{
+    font-weight:bold;
+    color:#28a745;    
+    line-height: 36px;
+}
+.imgSelect {
+    width: 100px;
+    height: 100px;
+}
+ion-row {
+    width: 100%;
+}
+.left {   
+    padding-top: 5px;
+    padding-right: 130px;
+}
+.right {
+    padding-bottom: 20px;
+}
+.select {
+    background-color: green($color: #000000);
+}
+.container {
+    width: 310%;
+}
+ion-button {
+    margin-left: 0px;
+}

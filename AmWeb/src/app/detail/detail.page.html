@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar text-center color="dark">
+    <ion-label>
+      <h2><b>รายละเอียการสั่งซื้อ</b></h2>
+    </ion-label>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <br>
+  <br>
+  <div class="container" *ngIf="dataOrder != null">
+    <ion-card>
+      <ion-item text-center class="deProduct">
+        <ion-label><h2><b>ข้อมูลสินค้า</b></h2></ion-label>
+      </ion-item>
+      <br>
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>รหัสสั่งซื้อ : </b> {{dataOrder.idOrder}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>รหัสสินค้า : </b> {{dataOrder.idProduct}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>ชื่อสินค้า : </b> {{dataOrder.nameProduct}}</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>จำนวนสินค้า : </b> {{dataOrder.amountProduct}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>ราคารวม : </b> {{dataOrder.priceOrder}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    <br>
+    <ion-card>
+      <ion-item text-center class="deUser">
+        <ion-label><h2><b>ข้อมูลลูกค้า</b></h2></ion-label>
+      </ion-item>
+      <br>
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>ชื่อลูกค้า : </b> {{dataOrder.nameUser}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>เบอร์โทรลูกค้า : </b> {{dataOrder.telUser}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>ที่อยู่ : </b> {{dataOrder.addressUser}}</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    <br>
+    <ion-card>
+      <ion-item text-center class="deLogis">
+        <ion-label><h2><b>ข้อมูลการจัดส่ง</b></h2></ion-label>
+      </ion-item>
+      <br>
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>วันที่รับออเดอร์ : </b> {{dataOrder.dateOrder | date :'medium'}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>วันส่งออเดอร์ : </b> {{dataOrder.sendDate | date :'medium'}}</ion-label>              
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item class="itemDetail">
+              <ion-label><b>สถานะ : </b> {{dataOrder.status}}</ion-label>              
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <br>
+  <ion-row>
+    <ion-col text-center>
+        <ion-button class="btn-back" [routerLink]="['/order-list']">ย้อนกลับ</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

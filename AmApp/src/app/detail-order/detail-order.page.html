@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar text-center>
+    <ion-title class="aaa">รายละเอียดสินค้า</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item lines= "none">
+      <ion-label  class="font"><b>รหัสสินค้า : </b>{{idProduct}}</ion-label>      
+    </ion-item>
+    <ion-item lines= "none">
+      <ion-label  class="font"><b>ชื่อสินค้า : </b>{{nameProduct}}</ion-label>         
+    </ion-item >
+    <ion-item *ngIf="isShowText == true" lines= "none">
+      <ion-label  class="font"><b>จำนวนสินค้า : </b>{{amountProduct}}</ion-label>      
+    </ion-item>
+    <ion-item *ngIf="isShowForm == false" lines= "none">
+      <ion-label  class="font"><b>จำนวนสินค้า : </b></ion-label>   
+      <ion-input type="text" placeholder="กรอกจำนวนสินค้า"></ion-input>   
+    </ion-item>
+    <ion-item lines= "none">
+      <ion-label  class="font"><b>ราคาสินค้า : </b>{{priceOrder}}</ion-label>        
+    </ion-item>     
+  </ion-card>
+</ion-content>
+<ion-footer text-center>
+  
+    <!-- <ion-col>
+      <ion-button expand="block" color="success" *ngIf="isShowEdit == true" (click)="toUpdate()">แก้ไขรายการ</ion-button>    
+      <ion-button expand="block" color="dark"*ngIf="isShowCon == false" (click)="update()">ยืนยันการแก้ไข</ion-button>        
+    </ion-col>
+    <ion-col>        
+      <ion-button expand="block" color="danger">ลบรายการ</ion-button>
+    </ion-col> -->
+ 
+  <ion-button (click)="goback()" shape="round">ย้อนกลับ</ion-button>
+</ion-footer>

@@ -1,0 +1,94 @@
+<ion-header  style="padding-bottom: 6px;">
+  <ion-toolbar text-center>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-row>
+     
+      <ion-col>
+        <ion-title>เพิ่มข้อมูลสมาชิก</ion-title>
+      </ion-col>
+      
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="cardborder">
+    <ion-card-content>
+      <form [formGroup]="datauser" (ngSubmit)="check()">
+        <ion-item [class.invalid]="submit && f.username.errors">
+          <ion-label>ชื่อผู้ใช้</ion-label>
+          <ion-input placeholder="ชื่อผู้ใช้" formControlName="username"></ion-input>
+        </ion-item>
+        <div *ngIf="isShowValidateUsername == true">
+          <ion-label color="danger">* กรุณากรอกชื่อผู้ใช้ !!</ion-label>
+        </div>        
+        <ion-item [class.invalid]="submit && f.password.errors">
+          <ion-label>รหัสผ่าน</ion-label>
+          <ion-input placeholder="รหัสผ่าน" formControlName="password"></ion-input>
+        </ion-item>
+        <div *ngIf="isShowValidatePassword == true">
+          <ion-label color="danger">* กรุณากรอกรหัสผ่าน !!</ion-label>
+        </div>       
+        <ion-item [class.invalid]="submit && f.carduser.errors">
+          <ion-label>รหัสบัตรประชาชน</ion-label>
+          <ion-input placeholder="รหัสบัตรประชาชน" formControlName="carduser"></ion-input>
+        </ion-item>   
+        <div *ngIf="isShowValidateCard == true">
+          <ion-label color="danger">* กรุณากรอกรหัสบัตรประชาชน !!</ion-label>
+        </div>    
+        <div *ngFor="let error of errorMessages.carduser">
+          <div *ngIf="carduser.hasError(error.type) && (carduser.dirty || carduser.touched)">
+            <ion-label color="danger">* {{error.message}}</ion-label>
+          </div>
+        </div> 
+        <ion-item [class.invalid]="submit && f.nameuser.errors">
+          <ion-label>ชื่อ-นามสกุลผู้ใช้</ion-label>
+          <ion-input placeholder="ชื่อ-นามสกุล" formControlName="nameuser"></ion-input>
+        </ion-item>  
+        <div *ngIf="isShowValidateName == true">
+          <ion-label color="danger">* กรุณากรอกชื่อนามสกุล !!</ion-label>
+        </div>      
+        <ion-item>
+          <ion-label>สถานะ</ion-label>
+          <select   formControlName="statususer" >
+            <option value="พร้อมใช้งาน">พร้อมใช้งาน</option>
+            <option value="ไม่พร้อมใช้งาน">ไม่พร้อมใช้งาน</option>
+            <option value="ถูกระงับ">ระงับการใช้งาน</option>
+           
+          </select>       
+          <!-- <ion-select aria-placeholder="เลือกสถานะ" formControlName="statususer">
+            <ion-select-option value="พร้อมใช้งาน">พร้อมใช้งาน</ion-select-option>
+            <ion-select-option value="ไม่พร้อมใช้งาน">ไม่พร้อมใช้งาน</ion-select-option>
+            <ion-select-option value="ถูกระงับ">ระงับการใช้งาน</ion-select-option>
+          </ion-select> -->
+        </ion-item>     
+        <div *ngIf="isShowValidateStatus == true">
+          <ion-label color="danger">* กรุณาเลือกสถานะ !!</ion-label>
+        </div>   
+        <ion-item [class.invalid]="submit && f.addressuser.errors">
+          <ion-label>ที่อยู่</ion-label>
+          <ion-input placeholder="ที่อยู่" formControlName="addressuser"></ion-input>
+        </ion-item>    
+        <div *ngIf="isShowValidateAddress == true">
+          <ion-label color="danger">* กรุณากรอกที่อยู่ !!</ion-label>
+        </div>    
+        <ion-item [class.invalid]="submit && f.teluser.errors">
+          <ion-label>เบอร์โทรศัพท์</ion-label>
+          <ion-input placeholder="เบอร์โทรศัพท์" formControlName="teluser"></ion-input>
+        </ion-item>   
+        <div *ngIf="isShowValidateTel == true">
+          <ion-label color="danger">* กรุณากรอกเบอร์โทรศัพท์ !!</ion-label>
+        </div>    
+        <div *ngFor="let error of errorMessages.teluser">
+          <div *ngIf="teluser.hasError(error.type) && (teluser.dirty || teluser.touched)">
+            <ion-label color="danger">* {{error.message}}</ion-label>
+          </div>
+        </div> 
+        <br>
+        <ion-button expand="full"  type="submit">เพิ่มข้อมูลสมาชิก</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

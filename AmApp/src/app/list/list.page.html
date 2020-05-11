@@ -1,0 +1,179 @@
+<ion-header>
+  <ion-toolbar text-center>
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-button (click)="gotoOrder1()" color="light" slot="end" class="buttton"
+      *ngIf="datausercheckstatus =='ไม่พร้อมใช้งาน'">
+      <ion-icon name="add-circle"> </ion-icon>
+      สั่งซื้อ
+    </ion-button>  -->
+    <ion-button slot="end" fill="clear" *ngIf="datausercheckstatus =='พร้อมใช้งาน'" (click)="gotoOrder()">
+
+      สั่งซื้อ
+
+    </ion-button>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+
+  <div text-center>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4>รายการสั่งซื้อ</h4>
+
+      </div>
+    </div>
+  </div>
+
+  <ion-searchbar placeholder="ค้นหาสินค้า" [(ngModel)]="search"></ion-searchbar>
+  <br>
+
+
+  <ion-grid>
+    <ion-card>
+
+      <ion-row style="border-bottom: groove; ">
+        <ion-col size="3" class="aaa" text-center>
+          <ion-label class="font"><b>รหัสออเดอร์</b></ion-label>
+        </ion-col>
+
+        <ion-col size="2" class="aaa" text-center>
+          <ion-label><b>วันที่</b></ion-label>
+        </ion-col>
+
+        <ion-col size="3" class="aaa" text-center>
+          <ion-label><b>หลักฐานการโอน</b></ion-label>
+        </ion-col>
+
+        <ion-col size="4" class="aaa" text-center>
+          <ion-label><b>สถานะ</b></ion-label>
+
+        </ion-col>
+
+        <!-- <ion-col  style="background-color: blueviolet" size="3" >
+      <ion-label>ดู</ion-label>
+    </ion-col> -->
+
+      </ion-row>
+
+      <div *ngIf="isShowText == true" text-center>
+        <br>
+        <ion-label>
+          <h1><b>ไม่มีรายการสต๊อก</b></h1>
+        </ion-label>
+      </div>
+
+
+
+      <ion-row *ngFor="let a of this.showReceiptData |filter:search| paginate: { itemsPerPage: 5, currentPage: p }"
+        text-center>
+        <ion-item-sliding>
+          <ion-item lines="none" slot="none" (click)="gotoOrderdetail(a.idReceipt)">
+            <ion-col size="3" class="colsize">
+              <ion-label class="font"> {{a.idReceipt}}</ion-label>
+            </ion-col>
+
+            <ion-col size="2" text-center>
+              <ion-label class="font">{{a.date}}</ion-label>
+            </ion-col>
+
+            <ion-col size="3" text-center>
+              <ion-label class="font">{{a.statusFile}}</ion-label>
+            </ion-col>
+            <div *ngIf="a.status != 'ได้รับแล้ว'">
+            <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+            </div>
+
+            <ion-col size="4" text-center
+              *ngIf="a.status != 'รับสั่งซื้อ' && a.status != 'ส่งสินค้า' && a.status != 'ได้รับแล้ว'  && a.status != 'ยกเลิก'">
+              <ion-label class="font">{{a.status}} </ion-label>
+            </ion-col>
+
+            <ion-col size="4" text-center *ngIf="a.status == 'รับสั่งซื้อ'">
+              <ion-label class="font">กรุณาแนบหลักฐานการโอนเงิน 
+              </ion-label>
+            </ion-col>
+
+            <ion-col size="4" text-center *ngIf="a.status == 'ส่งสินค้า'">
+              <ion-label class="font">กำลังดำเนินการจัดส่งสินค้า</ion-label>
+            </ion-col>
+
+            <ion-col size="4" text-center *ngIf="a.status == 'ได้รับแล้ว'">
+              <ion-label class="font">ทำการรับสินค้าเสร็จสิ้น</ion-label>
+            </ion-col>
+
+            <ion-col size="4" text-center *ngIf="a.status == 'ยกเลิก'">
+              <ion-label class="font">ยกเลิกสินค้าเสร็จสิ้น</ion-label>
+            </ion-col>
+
+          </ion-item>
+          <!-- <div *ngIf="a.status != 'ทำการรับสินค้าเสร็จสิ้น'">
+            <ion-item-options side="end" #slidingItem>
+              <ion-item-option  (click)="gotoOrderdetail(a.idReceipt)" >5555555555555555555
+                <ion-icon name="eye"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </div> -->
+          <div *ngIf="a.status == 'สั่งซื้อ'" >
+            <ion-item-options side="end">
+              <ion-item-option color="danger" expandable (click)="cancelorder(a.idReceipt)">
+                ยกเลิกสินค้า
+              </ion-item-option>
+              <!-- <ion-item-option (click)="gotoOrderdetail(a.idReceipt)">
+                <ion-icon name="eye"></ion-icon>
+              </ion-item-option> -->
+            </ion-item-options>
+          </div>
+          <div *ngIf="a.status == 'รับสั่งซื้อ'">
+
+            <ion-item-options side="end">
+              <ion-item-option color="danger" expandable (click)="cancelorder(a.idReceipt)">
+                ยกเลิกสินค้า
+              </ion-item-option>
+              <!-- <ion-item-option (click)="gotoOrderdetail(a.idReceipt)">
+                <ion-icon name="eye"></ion-icon>
+              </ion-item-option> -->
+            </ion-item-options>
+          </div>
+
+          <div *ngIf="a.status == 'ส่งสินค้า'">
+            <ion-item-options side="end">
+              <ion-item-option color="success" expandable (click)="sendorder(a.idReceipt)">
+                รับสินค้า
+              </ion-item-option>
+              <!-- <ion-item-option (click)="gotoOrderdetail(a.idReceipt)">
+                <ion-icon name="eye"></ion-icon>
+              </ion-item-option> -->
+            </ion-item-options>
+          </div>
+
+        </ion-item-sliding>
+
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+  <!-- ///////////////////////////////////////////////////////// -->
+
+
+
+  <div class="page">
+
+    <ion-row>
+      <ion-col text-left size="3">
+        <br>
+        <label>Total : {{countdata}}</label>
+      </ion-col>
+
+      <ion-col text-right>
+
+        <pagination-controls (pageChange)="p = $event" previousLabel="ย้อนกลับ" maxSize="5" nextLabel="ถัดไป"
+          class="my-pagination"></pagination-controls>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

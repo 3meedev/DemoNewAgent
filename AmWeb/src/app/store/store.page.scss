@@ -1,0 +1,115 @@
+
+.a {
+  width: 100%;
+}
+.aa {
+  padding-top: 15px;
+}
+.header-title {
+  padding-top: 10px;
+}
+.btn-addProduct {
+  width: 150px;
+  height: 60px;
+}
+.menu,
+.page {
+  width: 90%;
+  margin: auto;
+}
+.select {
+  width: 200px;
+  margin: 0;
+  padding: 0;
+}
+.btn-select {
+  width: 220px;
+  height: 60px;
+}
+.btnTab {
+  float: left;
+}
+ion-title {
+  padding-top: 10px;
+}
+.btnTabExit {
+  float: right;
+}
+
+ion-content {
+  --background: rgb(249, 250, 251);
+}
+ion-header{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.0625) !important;
+    --background: rgb(249, 250, 251);
+}
+
+ion-header.header-md:after {
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.0625) !important;
+  --background: rgb(249, 250, 251);
+}
+
+.cardborder {
+  
+    border-radius: 0;
+    border: 1px solid rgba(0, 0, 0, 0.0625) !important;
+    --background: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0) 0px 3px 1px -2px, rgba(0, 0, 0, 0) 0px 2px 2px 0px, rgba(0, 0, 0, 0) 0px 1px 5px 0px;
+  }
+  
+table,
+td,
+th,
+tr {
+  text-align: center;
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  tr:hover {
+    background-color: #ddd;
+  }
+}
+thead{
+}
+
+th {
+  height: 45px;
+ // color: rgb(255, 255, 255);
+ border-bottom: groove;
+  
+//   background-color: rgba(120, 144, 156, 0.603);
+  
+}
+td{
+    height: 40px;
+}
+.fixed_header th,
+.fixed_header td {
+  //padding: 5px;
+  text-align: center;
+  width: 600px;
+  overflow: auto;
+}
+ion-select{
+  
+  border: 1px solid #ededed;
+  border-radius: 5px;
+  background: #fbfbfb;
+  width: 100%;
+  height: 34%;
+visibility: hidden;   
+padding: 0 0 0 0;
+}
+
+
+select{
+  border: 1px solid #ededed;
+  border-radius: 5px;
+  background: #fbfbfb;
+  width: 100%;
+  height: 40%;
+  padding: 0 0 0 0;
+
+}

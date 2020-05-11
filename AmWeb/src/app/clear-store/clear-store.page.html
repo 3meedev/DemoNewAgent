@@ -1,0 +1,486 @@
+<ion-header>
+  <ion-toolbar text-center>
+    <ion-button slot="start" fill="clear">
+      <ion-menu-button></ion-menu-button>
+ </ion-button>
+    <ion-grid>
+      <ion-row>
+
+        <ion-col size="2" class="ion-align-self-start" style="padding-bottom: 0;padding-top: 0;"
+          *ngIf="isShowContentStock == false">
+
+          <label> กรุณาเลือกสถานะ</label>
+          <select (ionChange)="onChange(data)" [(ngModel)]="data">
+            <option value="ทั้งหมด" selected>ทั้งหมด</option>
+            <option value="สินค้าครบ" selected>สินค้าครบ</option>
+            <option value="สินค้าตกหล่น" selected>สินค้าตกหล่น</option>
+            <option value="สินค้าเกิน" selected>สินค้าเกิน</option>
+          </select>
+
+        </ion-col>
+
+
+
+
+      </ion-row>
+    </ion-grid>
+    <ion-button fill="clear" slot='end' (click)="Confirm()" *ngIf="isShowButton == true">ตัดสต๊อก</ion-button>
+    <ion-button fill="clear" slot='end' (click)="Confirm()" *ngIf="isShowButtonUpdate == true">อัพเดท</ion-button>
+    <ion-button fill="clear" slot='end' (click)="showContent()" *ngIf="isShowButtonCheck == false"> รายการสต๊อก
+    </ion-button>
+    <ion-button fill="clear" slot='end' (click)="closeContent()" *ngIf="isShowButtonBack == true"> รายการสินค้า
+    </ion-button>
+    <ion-button fill="clear" slot='end' (click)="showContent()" *ngIf="isShowButtonBack2 == true"> ย้อนกลับ
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="isShowContentStock == false">
+    <ion-card class="cardborder">
+      <ion-card-header text-center style="padding-bottom: 0;">
+        <ion-row>
+          <ion-col>
+            <ion-label>
+              <h2><b>รายการสินค้า</b></h2>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-select placeholder="- กรุณาเลือกสถานะ -" (ionChange)="onChange(data)" [(ngModel)]="data"
+          style="visibility: hidden;">
+          <ion-select-option value="ทั้งหมด">ทั้งหมด</ion-select-option>
+          <ion-select-option value="สินค้าครบ">สินค้าครบ</ion-select-option>
+          <ion-select-option value="สินค้าตกหล่น">สินค้าตกหล่น</ion-select-option>
+          <ion-select-option value="สินค้าเกิน">สินค้าเกิน</ion-select-option>
+        </ion-select>
+      </ion-card-header>
+
+      <ion-row text-center>
+        <table class="fixed_header">
+          <thead>
+            <th>
+              <ion-checkbox class="checkbox" [(ngModel)]="masterCheck" [indeterminate]="isIndeterminate"
+                (click)="checkMaster($event)" class="checkbox"></ion-checkbox>
+            </th>
+            <th>รหัสสินค้า</th>
+            <th>ชื่อสินค้า</th>
+            <th>นำเข้า</th>
+            <th>ขาย</th>
+            <th>คงเหลือ</th>
+            <th>สถานะ</th>
+            <th>แก้ไข</th>
+          </thead>
+          <!-- <ion-col class="a">
+            <ion-label>
+              <b>รหัสสินค้า</b>
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              <b>ชื่อสินค้า</b>
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              <b>นำเข้า</b>
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              <b>ขาย</b>
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              <b>คงเหลือ</b>
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              <b>สถานะ</b>
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              <b>แก้ไข</b>
+            </ion-label>
+          </ion-col> -->
+
+          <div *ngIf="isShowProductZero == true" text-center>
+            <br>
+            <ion-label>
+              <h1><b>ไม่มีรายการสินค้า</b></h1>
+            </ion-label>
+          </div>
+
+          <tbody>
+            <tr *ngFor="let s of datafilter | paginate: { itemsPerPage: 10, currentPage: PageNumber }">
+              <td *ngIf="s.showTotal != 1">
+                <ion-checkbox [(ngModel)]="s.statusCheck" (ionChange)="checkEvent()"></ion-checkbox>
+              </td>
+              <td *ngIf="s.showTotal == 1">
+                <ion-icon color="danger" name="remove-circle-outline"></ion-icon>
+              </td>
+              <td>{{s.idProduct}}</td>
+              <td> {{s.nameProduct}}</td>
+              <td> {{s.totalShow}}</td>
+              <td> {{s.amountProduct}}</td>
+              <td> {{s.totalProduct}}</td>
+              <td *ngIf="s.buttonCheck == null">
+                <ion-input readonly placeholder="{{s.statusProduct}}"></ion-input>
+              </td>
+              <td *ngIf="s.buttonCheck == null">
+                <ion-button fill="clear" color="warning" (click)="showinput(s)">
+                  <ion-icon size="large" name="create"></ion-icon>
+                </ion-button>
+              </td>
+
+              <td *ngIf="s.buttonCheck == 'check'">
+
+                <select class="select1" (ionChange)="dropdown(changeinput)" [(ngModel)]="changeinput">
+                
+                <option value="สินค้าครบ" >สินค้าครบ</option>
+                <option value="สินค้าตกหล่น" >สินค้าตกหล่น</option>
+                <option value="สินค้าเกิน" >สินค้าเกิน</option>
+              </select>
+    
+
+                <ion-select placeholder="{{s.statusProduct}}" (ionChange)="dropdown(changeinput)"
+                  [(ngModel)]="changeinput">
+                  <ion-select-option value="สินค้าครบ">สินค้าครบ</ion-select-option>
+                  <ion-select-option value="สินค้าตกหล่น">สินค้าตกหล่น</ion-select-option>
+                  <ion-select-option value="สินค้าเกิน">สินค้าเกิน</ion-select-option>
+                </ion-select>
+              </td>
+              <td *ngIf="s.buttonCheck == 'check'">
+                <ion-button (click)="updateinput(s)">ตกลง</ion-button>
+              </td>
+              <td *ngIf="s.buttonCheck == true">
+                <ion-label>
+                  <ion-input readonly placeholder="{{s.statusProduct}}"></ion-input>
+                </ion-label>
+              </td>
+              <td *ngIf="s.buttonCheck == true">
+                <ion-label color="danger"><b>เช็คสต๊อกแล้ว</b></ion-label>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </ion-row>
+      <!-- <ion-row text-center *ngFor="let s of datafilter | paginate: { itemsPerPage: 10, currentPage: PageNumber }">
+
+          <ion-item class="checkbox" *ngIf="s.showTotal != 1" lines="none">
+            <ion-label></ion-label>
+            <ion-checkbox [(ngModel)]="s.statusCheck" (ionChange)="checkEvent()"></ion-checkbox>
+          </ion-item>
+
+          <ion-item class="checkbox" *ngIf="s.showTotal == 1" lines="none">
+            <ion-icon color="danger" name="remove-circle-outline"></ion-icon>
+          </ion-item>
+
+          <ion-col class="a">
+            <ion-label>
+              {{s.idProduct}}
+            </ion-label>
+          </ion-col>
+
+          <ion-col class="a">
+            <ion-label>
+              {{s.nameProduct}}
+            </ion-label>
+          </ion-col>
+
+          <ion-col class="a">
+            <ion-label>
+              {{s.totalShow}}
+            </ion-label>
+          </ion-col>
+
+          <ion-col class="a">
+            <ion-label>
+              {{s.amountProduct}}
+            </ion-label>
+          </ion-col>
+
+          <ion-col class="a">
+            <ion-label>
+              {{s.totalProduct}}
+            </ion-label>
+          </ion-col>
+
+          <ion-col *ngIf="s.buttonCheck == null">
+            <ion-input readonly placeholder="{{s.statusProduct}}"></ion-input>
+          </ion-col>
+
+
+          <ion-col *ngIf="s.buttonCheck == null">
+            <ion-button color="warning" (click)="showinput(s)">แก้ไข</ion-button>
+          </ion-col>
+
+          <ion-col *ngIf="s.buttonCheck == 'check'">
+            <ion-select placeholder="{{s.statusProduct}}" (ionChange)="dropdown(changeinput)" [(ngModel)]="changeinput">
+              <ion-select-option value="สินค้าครบ">สินค้าครบ</ion-select-option>
+              <ion-select-option value="สินค้าตกหล่น">สินค้าตกหล่น</ion-select-option>
+              <ion-select-option value="สินค้าเกิน">สินค้าเกิน</ion-select-option>
+            </ion-select>
+          </ion-col>
+
+          <ion-col *ngIf="s.buttonCheck == 'check'">
+            <ion-button (click)="updateinput(s)">ตกลง</ion-button>
+          </ion-col>
+
+          <ion-col *ngIf="s.buttonCheck == true">
+            <ion-label>
+              <ion-input readonly placeholder="{{s.statusProduct}}"></ion-input>
+            </ion-label>
+          </ion-col>
+          <ion-col class="textstock" *ngIf="s.buttonCheck == true">
+            <ion-label color="danger"><b>เช็คสต๊อกแล้ว</b></ion-label>
+          </ion-col>
+
+
+
+        </ion-row> -->
+
+    </ion-card>
+
+    <ion-row>
+      <ion-col text-left>
+        <br>
+        <ion-label>Product list <b>{{sumProductNumber}}</b> items.</ion-label>
+      </ion-col>
+      <ion-col text-right>
+        <pagination-controls (pageChange)="PageNumber = $event" previousLabel="ย้อนกลับ" maxSize="5" nextLabel="ถัดไป">
+        </pagination-controls>
+      </ion-col>
+    </ion-row>
+
+
+  </div>
+
+  <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <div *ngIf="isShowContentStockPerMonth == true">
+
+    <ion-card class="cardborder">
+      <ion-card-header text-center>
+        <ion-row>
+          <ion-col>
+            <ion-label>
+              <h2><b>รายการสต๊อกสินค้า</b></h2>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+
+      </ion-card-header>
+      <table class="fixed_header">
+        <thead>
+
+          <th>รายการตัดสต๊อก</th>
+          <th>เวลา</th>
+          <th>วันที่</th>
+          <th>รายละเอียด</th>
+        </thead>
+        <div *ngIf="isShowProductZeroStock == false" text-center>
+          <br>
+          <ion-label>
+            <h1><b>ไม่มีรายการสต๊อก</b></h1>
+          </ion-label>
+        </div>
+        <tbody>
+          <tr *ngFor="let s of getShowStockAll | paginate: { itemsPerPage: 10, currentPage: PageNumber }">
+            <td> {{s.idStock}}</td>
+            <td>{{ s.stockPerMonth | date:'shortTime' }}</td>
+            <td>{{ s.stockPerMonth | date:'longDate' }}</td>
+            <td>
+              <ion-button fill="clear" color="warning" (click)="getShowDetailStock(s.idStock)">
+                <ion-icon size="large" name="folder"></ion-icon>
+              </ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <ion-row text-center style="border-bottom:groove;">
+          <ion-col class="a">
+            <ion-label>
+              <b>รายการตัดสต๊อก</b>
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              <b>เวลา</b>
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              <b>วันที่</b>
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              <b>รายละเอียด</b>
+            </ion-label>
+          </ion-col>
+        </ion-row> -->
+
+
+      <!-- <ion-row  text-center
+          *ngFor="let s of getShowStockAll | paginate: { itemsPerPage: 10, currentPage: PageNumber }">
+          <ion-col class="a">
+            <ion-label>
+              {{s.idStock}}
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              {{ s.stockPerMonth | date:'shortTime' }}
+            </ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>
+              {{ s.stockPerMonth | date:'longDate' }}
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-button color="dark" (click)="getShowDetailStock(s.idStock)">ดูรายละเอียด</ion-button>
+          </ion-col>
+        </ion-row> -->
+
+    </ion-card>
+    <ion-row>
+      <ion-col text-left>
+        <br>
+        <ion-label>Product list <b>{{sumProduct}}</b> items.</ion-label>
+      </ion-col>
+      <ion-col text-right>
+        <pagination-controls (pageChange)="PageNumber = $event" previousLabel="ย้อนกลับ" maxSize="5" nextLabel="ถัดไป">
+        </pagination-controls>
+      </ion-col>
+    </ion-row>
+
+  </div>
+  <!--///////////////////////////////////////////////////////////////////////////////////-->
+
+  <div *ngIf="isShowContentStockDetail == true">
+
+    <ion-card class="cardborder">
+      <ion-card-header text-center>
+        <ion-row>
+          <ion-col>
+            <ion-label>
+              <h2><b>รายละเอียด</b></h2>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+      <ion-row text-center>
+        <ion-col>
+          <ion-card class="cardborder">
+            <ion-card-content class="data">
+              <ion-label><b>จำนวนสินค้านำเข้าทั้งหมด</b></ion-label><br>
+              <ion-label>จำนวน {{sumProductList}} รายการ</ion-label>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card class="cardborder">
+            <ion-card-content class="data">
+              <ion-label><b>จำนวนนำเข้าทั้งหมด</b></ion-label><br>
+              <ion-label>จำนวน {{sumProductIn}} ชิ้น</ion-label>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card class="cardborder">
+            <ion-card-content class="data">
+              <ion-label><b>จำนวนที่ขายทั้งหมด</b></ion-label><br>
+              <ion-label>จำนวน {{sumProductSell}} ชิ้น</ion-label>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card class="cardborder">
+            <ion-card-content class="data">
+              <ion-label><b>จำนวนคงเหลือทั้งหมด</b></ion-label><br>
+              <ion-label>จำนวน {{sumProductTotal}} ชิ้น</ion-label>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <table class="fixed_header">
+        <thead>
+
+          <th>รหัสสินค้า</th>
+          <th>ชื่อสินค้า</th>
+          <th>ชนิดสินค้า</th>
+          <th>สถานะสินค้า</th>
+          <th>จำนวนนำเข้า</th>
+          <th>จำนวนที่ขาย</th>
+          <th>จำนวนคงเหลือ</th>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of showData">
+            <td> {{s.idProduct}}</td>
+            <td> {{s.nameProduct}}</td>
+            <td> {{s.typeProduct}}</td>
+            <td> {{s.statusProduct}}</td>
+            <td> {{s.totalShow}}</td>
+            <td> {{s.amountProduct}}</td>
+            <td> {{s.totalProduct}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <ion-row text-center style="border-bottom: groove;">
+          <ion-col>
+            <ion-label><b>รหัสสินค้า</b></ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label><b>ชื่อสินค้า</b></ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label><b>ชนิดสินค้า</b></ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label><b>สถานะสินค้า</b></ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label><b>จำนวนนำเข้า</b></ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label><b>จำนวนที่ขาย</b></ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label><b>จำนวนคงเหลือ</b></ion-label>
+          </ion-col>
+        </ion-row> -->
+      <!-- <ion-row *ngFor="let s of showData" text-center style="border-bottom: groove;">
+          <ion-col>
+            {{s.idProduct}}
+          </ion-col>
+          <ion-col>
+            {{s.nameProduct}}
+          </ion-col>
+          <ion-col>
+            {{s.typeProduct}}
+          </ion-col>
+          <ion-col>
+            {{s.statusProduct}}
+          </ion-col>
+          <ion-col>
+            {{s.totalShow}}
+          </ion-col>
+          <ion-col>
+            {{s.amountProduct}}
+          </ion-col>
+          <ion-col>
+            {{s.totalProduct}}
+          </ion-col>
+        </ion-row> -->
+
+    </ion-card>
+  </div>
+</ion-content>

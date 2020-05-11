@@ -1,0 +1,36 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="aaa">แก้ไขบัญชีผู้ใช้</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+  <form [formGroup]="dataUser" (ngSubmit)="log()" class="font">       
+    <ion-item [class.invalid]="submit && f.addressUser.errors" lines="none">
+      <ion-label><b>รหัสผ่านปัจจุบัน :</b></ion-label>
+      <ion-input class="font" placeholder="รหัสผ่านปัจจุบัน" formControlName="password"></ion-input>
+    </ion-item>
+    <ion-item [class.invalid]="submit && f.telUser.errors" lines="none">
+      <ion-label><b>รหัสที่ต้องการเปลี่ยน :</b></ion-label>
+      <ion-input class="font" placeholder="รหัสที่ต้องการเปลี่ยน" formControlName="newpassword"></ion-input>
+    </ion-item>    
+    <ion-item [class.invalid]="submit && f.telUser.errors" lines="none">
+      <ion-label><b>ยืนยันรหัสผ่านอีกครั้ง :</b></ion-label>
+      <ion-input class="font" placeholder="ยืนยันรหัสที่ต้องการเปลี่ยน" formControlName="re-newpassword"></ion-input>
+    </ion-item> 
+  </form>
+</ion-card>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block"  (click)="log()">ยืนยันการเปลี่ยนรหัสผ่าน</ion-button>
+
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" color="danger"  (click)="close()">ย้อนกลับ</ion-button>
+
+    </ion-col>
+  </ion-row>
+</ion-footer>

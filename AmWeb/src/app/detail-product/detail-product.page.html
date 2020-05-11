@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar  text-center>
+    <ion-label>รายละเอียดสินค้า</ion-label>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="dataOrder != null">
+    <ion-card>
+      <ion-item>
+        <ion-label style="font-family:  Prompt,Poppins-Regular;">รหัสการสั่งซื้อ : {{idReceipt}}</ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="showDataOrderAdd == true" (click)="showDataOrder()">
+        <ion-col>
+          <ion-label class="text">ข้อมูลการสั่งซื้อ</ion-label>
+        </ion-col>
+        <ion-col text-right>
+          <ion-icon class="icon" size="large" name="arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+        </ion-col>
+      </ion-item>
+
+      <ion-item *ngIf="showDataOrderRemove == false" (click)="closeDataOrder()">
+        <ion-col>
+          <ion-label class="text">ข้อมูลการสั่งซื้อ</ion-label>
+        </ion-col>
+        <ion-col text-right>
+          <ion-icon size="large" name="arrow-dropup" md="md-arrow-dropup"></ion-icon>
+        </ion-col>
+      </ion-item>
+
+      <div *ngIf="isShowDataOrder == false">
+        <ion-row class="bg-item" *ngFor="let a of dataOrder.dataOrder">               
+          <ion-col size="6">
+            <ion-label style="padding-left: 15px;"><b>- ชื่อสินค้า : </b>{{a.nameProduct}} </ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label><b>จำนวน : </b>{{a.amountProduct}} <b>ชิ้น</b></ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <ion-label><b>ราคา : </b>{{a.priceOrder}} <b>บาท</b></ion-label>
+          </ion-col>
+
+        </ion-row>
+      </div>
+
+      <ion-item>
+        <ion-label style="font-family:  Prompt,Poppins-Regular;">วันที่สั่งซื้อ : {{date}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label style="font-family:  Prompt,Poppins-Regular;">วันที่รับสินค้า : {{senddate}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label style="font-family:  Prompt,Poppins-Regular;">ชื่อลูกค้า : {{nameUser}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label style="font-family:  Prompt,Poppins-Regular;">ที่อยู่ที่ติดต่อได้ : {{address}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label style="font-family:  Prompt,Poppins-Regular;">เบอร์โทรศัพท์ที่ติดต่อได้ : {{tel}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label style="font-family:  Prompt,Poppins-Regular;">สถานะ : {{status}}</ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="isShowAdd == false" (click)="show()">
+        <ion-col>
+          <ion-label class="text"><ion-label style="font-family:  Prompt,Poppins-Regular;">หลักฐานการโอนเงิน : {{statusFile}}</ion-label></ion-label>
+        </ion-col>
+        <ion-col text-right>
+          <ion-icon class="icon" size="large" name="arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+        </ion-col>        
+      </ion-item>
+
+      <ion-item *ngIf="isShowRemove == true" (click)="close()">
+        <ion-col>
+          <ion-label class="text"><ion-label style="font-family:  Prompt,Poppins-Regular;" >หลักฐานการโอนเงิน : {{statusFile}}</ion-label></ion-label>
+        </ion-col>
+        <ion-col text-right>
+          <ion-icon class="icon" size="large" name="arrow-dropup" md="md-arrow-dropup"></ion-icon>
+        </ion-col>        
+      </ion-item>
+
+      <ion-item *ngIf="isShowFile == true">
+        <ion-col>
+         <img src="{{file}}">
+        </ion-col>        
+      </ion-item>
+
+      <!-- <ion-item >
+    <ion-label>หลักฐานการโอนเงิน : แนบแล้ว</ion-label>
+  </ion-item> -->
+
+    </ion-card>
+  </div>
+</ion-content>

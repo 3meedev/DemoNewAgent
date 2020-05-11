@@ -1,0 +1,134 @@
+<ion-header [translucent]="true">
+  <ion-toolbar text-center>
+    <ion-button slot="start" fill="clear">
+      <ion-menu-button></ion-menu-button>
+ </ion-button>
+    <ion-grid >
+      <ion-row>
+
+        <ion-col size="2" class="ion-align-self-start" style="padding-bottom: 0;padding-top: 0;">
+         
+            <label > เลือกรายการสินค้า</label>
+            <select  (ionChange)="onChange(data)" [(ngModel)]="data" >
+              <option  value="ทั้งหมด"  selected>ทั้งหมด</option>
+              <option *ngFor="let p of datasss" value="{{ p.idProduct }}">{{p.nameProduct}}</option>
+            </select>
+         
+        </ion-col>
+        <ion-col size="2">
+
+          <!-- <ion-select placeholder="- เลือกรายการสินค้า -" (ionChange)="onChange(data)" [(ngModel)]="data"
+            interface="popover">
+            <ion-select-option value="ทั้งหมด">ทั้งหมด</ion-select-option>
+            <ion-select-option *ngFor="let p of datasss" value="{{ p.idProduct }}">{{p.nameProduct}}</ion-select-option>
+          </ion-select> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button fill="clear" slot="end" (click)="check()"> เพิ่มสินค้า
+    </ion-button>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <div *ngIf="isShowText == true" text-center>
+      <ion-label>
+        <h1><b>ไม่มีรายการสินค้า</b></h1>
+      </ion-label>
+    </div>
+    <ion-row>
+      <ion-col size="2" *ngFor="let ii of datasss;let i = index">
+
+        <div *ngIf="i < 6">
+          <ion-card class="cardborder">
+            <ion-card-content text-center>
+              {{ii.nameProduct}}<br>
+              {{ii.total}}
+            </ion-card-content>
+          </ion-card>
+        </div>
+
+        <div *ngIf="i >= 6">
+          <div *ngIf="isShow == true">
+            <ion-card class="cardborder">
+              <ion-card-content text-center>
+                {{ii.nameProduct}}<br>
+                {{ii.total}}
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="setShow()">Show Data</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <br>
+
+    <ion-card class="cardborder">
+      <ion-card-header text-center>
+        <ion-row>
+          <ion-col>
+            <ion-label>
+              <h2><b>คลังสินค้า</b></h2>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+
+      <ion-grid>
+        <ion-row>
+          <table class="fixed_header">
+            <thead>
+
+              <th>รหัสสินค้า</th>
+              <th>ชื่อสินค้า</th>
+              <th>จำนวนสินค้า</th>
+              <th>เวลา</th>
+              <th>วันที่</th>
+
+            </thead>
+            <div *ngIf="isShowTextDown == true">
+              <br>
+
+              <ion-label>
+                <h1><b>ไม่มีรายการสินค้า</b></h1>
+              </ion-label>
+            </div>
+            <tbody>
+              <tr *ngFor="let s of datafilter | paginate: { itemsPerPage: 6, currentPage: PageNumber }">
+                <td>{{s.idProduct}}</td>
+                <td>{{s.nameProduct}}</td>
+                <td> {{s.totalProduct}}</td>
+                <td> {{ s.addProductStore}}</td>
+                <td> {{ s.addProductStore}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+
+    
+    <div class="page">
+      <ion-row>
+        <ion-col text-left>
+          <br>
+          <ion-label>Product list <b>{{sumProductNumber}}</b> items.</ion-label>
+        </ion-col>
+        <ion-col text-right>
+          <pagination-controls (pageChange)="PageNumber = $event"  previousLabel="ย้อนกลับ" maxSize="5" nextLabel="ถัดไป"></pagination-controls>
+        </ion-col>
+      </ion-row>
+    </div>
+ 
+</ion-content>

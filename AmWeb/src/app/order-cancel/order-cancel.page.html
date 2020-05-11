@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="dark" text-center>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>เคลียร์สินค้า</ion-title>
+    <ion-button expand="block" type="submit" style="padding-right: 15px" slot="end" [routerLink]="['/edit-clear']">
+      ล้างสินค้า</ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-list>
+
+  <ion-item>
+    <ion-label><strong>Select All</strong></ion-label>
+    <ion-checkbox slot="start" 
+    [(ngModel)]="masterCheck"
+    [indeterminate]="isIndeterminate"
+      (click)="checkMaster($event)"></ion-checkbox>
+  </ion-item>
+
+  <ion-item *ngFor="let item of checkBoxList">
+    <ion-label></ion-label>
+    <ion-checkbox slot="start" 
+    [(ngModel)]="item.isChecked" 
+    (ionChange)="checkEvent()"></ion-checkbox>
+  </ion-item>
+</ion-list>
+
+
+
+  <ion-button (click)="addasd()"></ion-button>
+
+</ion-content>

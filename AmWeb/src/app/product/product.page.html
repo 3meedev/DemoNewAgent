@@ -1,0 +1,84 @@
+<ion-header  style="padding-bottom: 6px;">
+  <ion-toolbar text-center>
+    <ion-button slot="start" fill="clear">
+      <ion-menu-button></ion-menu-button>
+ </ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button fill="clear" slot="end" [routerLink]="['/add-product']"> เพิ่มสินค้า</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="cardborder">
+    <ion-card-header text-center>
+      <ion-row>
+        <ion-col>
+          <ion-label>
+            <h2><b> สินค้า</b></h2>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+  
+      <br>
+      <ion-grid>
+
+
+        <ion-row >
+
+          <table class="fixed_header">
+            <thead>
+
+              <th>รหัสสินค้า</th>
+              <th>ชื่อสินค้า</th>
+              <th>ประเภทสินค้า</th>
+              <th>ราคาสินค้า</th>
+              <th>ราคาต้นทุน</th>
+              <th>จัดการ</th>
+            </thead>
+            <div  *ngIf="isShowText == true">
+        
+
+              <ion-label>
+                <h1><b>ไม่มีรายการสินค้า</b></h1>
+              </ion-label>
+            </div>
+            <tbody>
+              <tr *ngFor="let p of datafilter | paginate: { itemsPerPage: 10, currentPage: PageNumber }">
+                <td>{{p.idProduct}}</td>
+                <td>{{p.nameProduct}}</td>
+                <td>{{p.typeProduct}}</td>
+                <td>{{p.priceProduct}}</td>
+                <td>{{p.costProduct}}</td>
+                <td><ion-button fill="clear" color="warning" (click)="EditDataProduct(p.idProduct)"> <ion-icon name="create"></ion-icon></ion-button>
+                    <ion-button fill="clear" color="danger" (click)="ConfirmDelete(p.idProduct)"> <ion-icon name="trash"></ion-icon></ion-button>  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-row>
+      </ion-grid>
+  </ion-card>
+  <div class="page">
+    <ion-row>
+      <ion-col text-left>
+        <br>
+        <ion-label>Product list <b>{{sumProductNumber}}</b> items.</ion-label>
+      </ion-col>
+      <ion-col text-right>
+        <pagination-controls (pageChange)="PageNumber = $event"  previousLabel="ย้อนกลับ" maxSize="5" nextLabel="ถัดไป"></pagination-controls>
+      </ion-col>
+    </ion-row>
+  
+  </div>
+
+
+</ion-content>

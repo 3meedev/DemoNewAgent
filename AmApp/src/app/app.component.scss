@@ -1,0 +1,39 @@
+.my-custom-menu {
+    // --width: 500px;
+   // --background: blue;
+    // --border-radius: 30px;
+  
+    
+    
+    
+  }
+
+
+ion-list{
+  --background: blue;
+
+}
+
+ion-content{
+  //border-radius: 30px;
+ // --background: blue;
+}
+
+
+.a{
+  --border-radius: 30px;
+}
+
+.split-pane-md.split-pane-visible>.split-pane-side {
+  border-radius: 0px 20px 20px ;
+
+}
+
+*{
+  font-family: Prompt,Poppins-Regular;
+  
+}
+fa-icon{
+  color: red;
+  font-size: large;
+}

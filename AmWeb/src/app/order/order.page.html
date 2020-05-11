@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar  text-center >
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Order</ion-title>
+    
+  </ion-toolbar>
+</ion-header><br>
+
+<ion-content>
+  <form [formGroup]="order"(ngSubmit)="presentAlertConfirm()">
+  <h2 class="header">สั่งซื้อ</h2>
+  <ion-card>
+    <ion-item>
+      <ion-label>ชื่อสินค้า :</ion-label>
+      <ion-select formControlName="nameProduct" [(ngModel)]="data" placeholder="เลือกสินค้า" (ionChange)="onChange(data)" >
+        <ion-select-option *ngFor="let item of dataProduct" value="{{ item.nameProduct }}">{{item.nameProduct}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+ </ion-card>
+ <ion-card *ngIf="data != null">
+  <ion-item>
+    <ion-label>รหัสสินค้า :</ion-label>
+    <ion-input placeholder="รหัสสินค้า" [(ngModel)]="data1.idProduct" readonly formControlName="idProduct" *ngIf="data1 != null">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>ชนิดสินค้า :</ion-label>
+    <ion-input placeholder="ชนิดสินค้า"[(ngModel)]="data1.typeProduct" readonly formControlName="type" *ngIf="data1 != null">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item >
+    <ion-label>สินค้าคงเหลือ :</ion-label>
+    <ion-input placeholder="สินค้าคงเหลือ"[(ngModel)]="data1.totalProduct" readonly formControlName="total" *ngIf="data1 != null">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>ราคาสินค้า :</ion-label>
+    <ion-input placeholder="ราคาสินค้า"[(ngModel)]="data1.priceProduct" readonly formControlName="price" *ngIf="data1 != null">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item [class.invalid]="submit && f.amountProduct.errors">
+    <ion-label>จำนวนสินค้า :</ion-label>
+    <ion-input placeholder="จำนวนสินค้า" formControlName="amountProduct" (ionChange)=amount(q) [(ngModel)]="q" *ngIf="data != null" clearInput >
+    </ion-input>
+  </ion-item>
+  <div *ngFor="let error of errorMessages.amountProduct">
+    <div *ngIf="amountProduct.hasError(error.type) && (amountProduct.dirty || amountProduct.touched)">
+      <ion-label color="danger">* {{error.message}}</ion-label>
+    </div>
+    </div>
+  <ion-item>
+    <ion-label>ราคารวม :</ion-label>
+    <ion-input placeholder="ราคารวม" formControlName="priceOrder" readonly  [(ngModel)]="sum" *ngIf="sum != null">
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>ชื่อลูกค้า :</ion-label>
+    <ion-input placeholder="ชื่อลูกค้า" formControlName="nameUser" clearInput></ion-input>
+  </ion-item>
+  <div *ngIf="isShowValidateName == true">
+    <ion-label color="danger">* กรุณากรอกชื่อผู้ใช้ !!</ion-label>
+  </div> 
+  
+  <ion-item [class.invalid]="submit && f.telUser.errors">
+    <ion-label>เบอร์โทร :</ion-label>
+    <ion-input placeholder="เบอร์โทร" formControlName="telUser" clearInput></ion-input>
+  </ion-item>
+  <div *ngIf="isShowValidatetelUser == true">
+    <ion-label color="danger">* กรุณากรอกเบอร์โทร!!</ion-label>
+  </div> 
+  <div *ngFor="let error of errorMessages.telUser">
+    <div *ngIf="telUser.hasError(error.type) && (telUser.dirty || telUser.touched)">
+      <ion-label color="danger">* {{error.message}}</ion-label>
+    </div>
+    </div>
+  <ion-item>
+    <ion-label>ที่อยู่ :</ion-label>
+    <ion-input placeholder="ที่อยู่" formControlName="addressUser" clearInput></ion-input>
+  </ion-item>
+  <div *ngIf="isShowValidateaddressUser == true">
+    <ion-label color="danger">* กรุณากรอกที่อยู่ !!</ion-label>
+  </div> 
+</ion-card>
+  <ion-button type="submit" expand="full" class="button" >สั่งซื้อสินค้า</ion-button>
+</form>
+</ion-content>

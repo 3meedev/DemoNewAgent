@@ -1,0 +1,59 @@
+<ion-header  style="padding-bottom: 6px;">
+  <ion-toolbar text-center>
+    <ion-row>
+      <ion-col>
+        <ion-buttons>
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col>
+        <ion-title class="header-title">เพิ่มสมาชิก</ion-title>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="cardborder" >
+    <ion-card-content>
+      <form [formGroup]="dataUser" (ngSubmit)="log()">
+        <ion-item [class.invalid]="submit && f.username.errors">
+          <ion-label>ชื่อผู้ใช้</ion-label>
+          <ion-input placeholder="ชื่อผู้ใช้" formControlName="username"></ion-input>
+        </ion-item>
+        <ion-item [class.invalid]="submit && f.password.errors">
+          <ion-label>รหัสผ่าน</ion-label>
+          <ion-input placeholder="รหัสผ่าน" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-item [class.invalid]="submit && f.cardUser.errors">
+          <ion-label>รหัสบัตรประชาชน</ion-label>
+          <ion-input placeholder="รหัสบัตรประชาชน" formControlName="cardUser"></ion-input>
+        </ion-item>
+        <ion-item [class.invalid]="submit && f.nameUser.errors">
+          <ion-label>ชื่อ-นามสกุลผู้ใช้</ion-label>
+          <ion-input placeholder="ชื่อ-นามสกุล" formControlName="nameUser"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>เลือกสถานะ</ion-label>
+          <select   formControlName="statusUser" >
+            <option value="พร้อมใช้งาน">พร้อมใช้งาน</option>
+            <option value="ไม่พร้อมใช้งาน">ไม่พร้อมใช้งาน</option>
+            <option value="ถูกระงับ">ระงับการใช้งาน</option>
+           
+          </select>       
+         
+        </ion-item>
+        <ion-item [class.invalid]="submit && f.addressUser.errors">
+          <ion-label>ที่อยู่</ion-label>
+          <ion-input placeholder="ที่อยู่" formControlName="addressUser"></ion-input>
+        </ion-item>
+        <ion-item [class.invalid]="submit && f.telUser.errors">
+          <ion-label>เบอร์โทรศัพท์</ion-label>
+          <ion-input placeholder="เบอร์โทรศัพท์" formControlName="telUser"></ion-input>
+        </ion-item>
+        <ion-button expand="full"  type="submit">เพิ่มข้อมูลสมาชิก</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

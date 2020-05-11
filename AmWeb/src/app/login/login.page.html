@@ -1,0 +1,74 @@
+<script src="https://kit.fontawesome.com/a4859189e7.js" crossorigin="anonymous"></script>
+
+<ion-content  text-center  [fullscreen]="true">
+
+
+  <!-- <ion-card >
+    
+    <ion-card-content ><ion-row>
+        <ion-col>
+          <ion-label>
+            <h2><b>เข้าสู่ระบบ</b></h2>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <br>
+      <form [formGroup]="datauser" (ngSubmit)="login()">
+        <ion-item >
+          <ion-icon name="contact"></ion-icon>
+          <ion-input placeholder="ชื่อผู้ใช้" formControlName="user"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-icon name="lock"></ion-icon>
+          <ion-input type="password" placeholder="รหัสผ่าน" formControlName="pass"></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col text-left>
+            <ion-label *ngIf="isShowValidate == true"><br><b class="text">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง !!</b></ion-label>
+            <ion-label *ngIf="isShowValidateNull == true"><br><b class="text">กรุณากรอกชื่อผู้ใช้และรหัสผ่าน !!</b></ion-label>
+          </ion-col>
+        </ion-row>
+        <br>
+        <ion-button   type="submit" >เข้าสู่ระบบ</ion-button>
+      </form>
+    </ion-card-content>
+   
+
+  </ion-card> -->
+
+  <img class="wave" src="assets/wave.png">
+	<div class="container">
+		<div class="img">
+			<img src="assets/bg.svg">
+		</div>
+		<div class="login-content">
+		<form [formGroup]="datauser" (ngSubmit)="login()"> 
+				<img src="assets/avatar.svg">
+				<h2 class="title">Welcome</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Username</h5>
+           		   		<input formControlName="user" type="text" class="input">
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password</h5>
+           		    	<input formControlName="pass" type="password" class="input">
+            	   </div>
+            	</div>
+            	<!-- <a >Forgot Password?</a> -->
+            	<input type="submit" class="btn" value="Login">
+           </form>
+        </div>
+    </div>
+    
+
+
+</ion-content>

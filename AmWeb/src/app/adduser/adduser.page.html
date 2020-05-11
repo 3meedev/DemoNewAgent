@@ -1,0 +1,110 @@
+<ion-header  style="padding-bottom: 6px;">
+  <ion-toolbar  text-center>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-row>
+      
+      <ion-col>
+        <ion-title>เพิ่มข้อมูลผู้ดูแล</ion-title>
+      </ion-col>
+      
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content><br>
+  <ion-card class="cardborder">
+    <ion-card-content>
+      <form [formGroup]="dataadmin" (ngSubmit)="ConfirmInsert()">
+        <!-- <ion-item [class.invalid]="submit && f.idadmin.errors">
+          <ion-label>รหัสผู้ใช้</ion-label>
+          <ion-input placeholder="รหัสผู้ใช้" formControlName="idadmin">
+          </ion-input>
+        </ion-item> -->
+
+        <ion-item [class.invalid]="submit && f.nameadmin.errors">
+          <ion-label>ชื่อผู้ดูแล</ion-label>
+          <ion-input placeholder="ชื่อผู้ดูแล" formControlName="nameadmin">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="isShowValidateName == true">
+          <ion-label color="danger">* กรุณากรอกชื่อผู้ดูแล !!</ion-label>
+        </div>
+        <ion-item [class.invalid]="submit && f.usernameadmin.errors">
+          <ion-label>ชื่อผู้ใช้</ion-label>
+          <ion-input placeholder="ชื่อผู้ใช้" formControlName="usernameadmin">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="isShowValidateUsername == true">
+          <ion-label color="danger">* กรุณากรอกชื่อผู้ใช้ !!</ion-label>
+        </div>
+        <ion-item [class.invalid]="submit && f.passwordadmin.errors">
+          <ion-label>รหัสผ่าน</ion-label>
+          <ion-input placeholder="รหัสผ่าน" formControlName="passwordadmin">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="isShowValidatePassword == true">
+          <ion-label color="danger">* กรุณากรอกรหัสผ่าน !!</ion-label>
+        </div>
+        <ion-item [class.invalid]="submit && f.teladmin.errors">
+          <ion-label>เบอร์โทร</ion-label>
+          <ion-input placeholder="เบอร์โทร" formControlName="teladmin">
+          </ion-input>
+        </ion-item>
+        <!-- <div *ngIf="isShowValidateTel == true">
+          <ion-label color="danger">* กรุณากรอกเบอ์โทร !!</ion-label>
+        </div> -->
+        <div *ngFor="let error of errorMessages.teladmin">
+          <div *ngIf="teladmin.hasError(error.type) && (teladmin.dirty || teladmin.touched)">
+            <ion-label color="danger">* {{error.message}}</ion-label>
+          </div>
+        </div>
+        <ion-item [class.invalid]="submit && f.leveladmin.errors">
+
+          <ion-label>ระดับ</ion-label>
+
+          <select   formControlName="leveladmin" >
+            <option value="ระดับที่ 1">ระดับที่ 1</option>
+            <option value="ระดับที่ 2">ระดับที่ 2</option>
+            <option value="ระดับที่ 3">ระดับที่ 3</option>
+            <option value="ระดับที่ 4">ระดับที่ 4</option>
+            <option value="ระดับที่ 5">ระดับที่ 5</option>
+            <option value="ระดับที่ 6">ระดับที่ 6</option>
+           
+          </select>       
+          <!-- <ion-select formControlName="leveladmin" placeholder="- เลือกระดับ -">
+            <ion-select-option value="ระดับที่ 1">ระดับที่ 1</ion-select-option>
+            <ion-select-option value="ระดับที่ 2">ระดับที่ 2</ion-select-option>
+            <ion-select-option value="ระดับที่ 3">ระดับที่ 3</ion-select-option>
+            <ion-select-option value="ระดับที่ 4">ระดับที่ 4</ion-select-option>
+            <ion-select-option value="ระดับที่ 5">ระดับที่ 5</ion-select-option>
+            <ion-select-option value="ระดับที่ 6">ระดับที่ 6</ion-select-option>
+          </ion-select> -->
+
+        </ion-item>
+        <div *ngIf="isShowValidateLevel == true">
+          <ion-label color="danger">* กรุณาเลือกระดับ !!</ion-label>
+        </div>
+        <ion-item [class.invalid]="submit && f.addressadmin.errors">
+          <ion-label>ที่อยู่</ion-label>
+          <ion-input placeholder="ที่อยู่" formControlName="addressadmin">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="isShowValidateAddress == true">
+          <ion-label color="danger">* กรุณากรอกที่อยู่ !!</ion-label>
+        </div>
+        <br>
+
+        <ion-item>          
+          <app-upload></app-upload>
+        </ion-item>
+
+        <ion-button expand="full"  type="submit">เพิ่มข้อมูลผู้ดูแล</ion-button>
+      </form>
+
+
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

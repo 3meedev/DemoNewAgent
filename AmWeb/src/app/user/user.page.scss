@@ -1,0 +1,117 @@
+// .a{
+//     padding-top: 15px;
+// }
+
+// .header-admin {
+//     background-color: #900C3F;
+//     padding: 0;
+//     color: white;
+// }
+
+// .content-admin {
+//     background-color: rgba(144, 12, 63, 0.045);   
+// }
+
+// .header-user {
+//     background-color: #1A5276;
+//     padding: 0;
+//     color: white;
+// }
+// .content-user {
+//     background-color: rgba(26, 83, 118, 0.045);    
+// }
+// .menu {
+//     width: 95%;
+// }
+// ion-card {
+//     width: 90%;
+//     margin: auto;
+// }
+// .header-content , .header-title{
+//     padding-top: 10px;
+// }
+
+// .btn-head-admin , .btn-head-user {
+//     width: 150px;
+//     height: 60px;
+//     background-color: rgba(144, 12, 63, 0.045);
+// }
+// .btn-head-admin {
+//     background-color: rgba(144, 12, 63, 0.045);
+// }
+// .btnTab {
+//     float: left;     
+// }
+// ion-title {
+//     padding-top: 10px;
+// }
+// .btnTabExit {
+//     float: right;     
+// }
+// .imm {
+//     width: 100px;
+//     height: 100px;
+// }
+
+ion-content {
+    --background: rgb(249, 250, 251);
+  }
+  ion-header{
+      border-bottom: 1px solid rgba(0, 0, 0, 0.0625) !important;
+      --background: rgb(249, 250, 251);
+  }
+  
+  ion-header.header-md:after {
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.0625) !important;
+    --background: rgb(249, 250, 251);
+  }
+  
+  .cardborder {
+      border-radius: 0;
+      border: 1px solid rgba(0, 0, 0, 0.0625) !important;
+      --background: rgb(255, 255, 255);
+      box-shadow: rgba(0, 0, 0, 0) 0px 3px 1px -2px, rgba(0, 0, 0, 0) 0px 2px 2px 0px, rgba(0, 0, 0, 0) 0px 1px 5px 0px;
+    }
+
+table,
+td,
+th,
+tr {
+  text-align: center;
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  tr:hover {
+    background-color: #ddd;
+  }
+}
+thead{
+}
+
+th {
+  height: 45px;
+ // color: rgb(255, 255, 255);
+ border-bottom: groove;
+  
+//   background-color: rgba(120, 144, 156, 0.603);
+  
+}
+td{
+    height: 40px;
+}
+.fixed_header th,
+.fixed_header td {
+  //padding: 5px;
+  text-align: center;
+  width: 600px;
+  overflow: auto;
+}
+.colorA{
+    color: #1985A1;
+}
+.colorB{
+    color: #6F8EA5;
+
+}
