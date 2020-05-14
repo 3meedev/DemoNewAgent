@@ -123,9 +123,9 @@ export class LoginPage implements OnInit {
       this.datauser = it
       console.log(this.datauser);
     })
-    
+
   }
- 
+
   ngOnInit() {
 
     this.callApi.GetUserData().subscribe(it => {
@@ -150,9 +150,9 @@ export class LoginPage implements OnInit {
 
   }
 
-  eiei(){
-console.log(54135131);
-  
+  eiei() {
+    console.log(54135131);
+
   }
 
 
@@ -175,7 +175,7 @@ console.log(54135131);
               console.log("welcome");
               this.callApi.nameUser = this.datausername.username
               this.callApi.name = this.datausername.nameUser
-              this.route.navigate(['/list', { _id: this.datausername.statusUser }])
+              this.route.navigate(['/list'])
             }
           }
           else if (this.user.value.user == this.datausername.username && this.user.value.password != this.datausername.password) {

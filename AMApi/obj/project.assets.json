@@ -12222,11 +12222,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ProjectAM\\AMApi\\AMApi.csproj",
+      "projectUniqueName": "D:\\DemoNewAgent\\AMApi\\AMApi.csproj",
       "projectName": "AMApi",
-      "projectPath": "D:\\ProjectAM\\AMApi\\AMApi.csproj",
+      "projectPath": "D:\\DemoNewAgent\\AMApi\\AMApi.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "D:\\ProjectAM\\AMApi\\obj\\",
+      "outputPath": "D:\\DemoNewAgent\\AMApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
