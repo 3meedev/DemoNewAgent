@@ -74,6 +74,8 @@ export class OrderPage implements OnInit {
       'sendDate': [null],
       'status': [null],
       'userOrder': [null],
+      'costProduct': [null],
+      'priceProduct':[null],
       'totalProduct': [""]
     })
   }
@@ -199,6 +201,8 @@ export class OrderPage implements OnInit {
       this.callApi.GetProductBydata(data).subscribe(it => {
         this.data1 = it
         this.data1.totalProduct = this.data1.totalProduct
+        this.order.value.costProduct = this.data1.costProduct;
+        this.order.value.priceProduct = this.data1.priceProduct;
         console.log(this.amountnumber);
         console.log(this.total);
         if (this.amountnumber <= this.total && this.amountnumber != 0) {

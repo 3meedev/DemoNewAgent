@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { ProductService } from "src/app/service/product.service";
 import { StoreService } from "src/app/service/store.service";
 import { product } from 'src/Models/product';
 import { month } from 'src/Models/month';
 import { UserService } from '../service/user.service';
-import { MenuController, LoadingController } from '@ionic/angular';
+import { MenuController, LoadingController, AlertController } from '@ionic/angular';
 import { OrderService } from '../service/order.service';
 import { Order } from 'src/Models/order';
 import { receipt } from 'src/Models/order';
@@ -13,6 +13,8 @@ import { store } from 'src/Models/stroe';
 import { asapScheduler } from 'rxjs';
 import { CallApiService } from '../service/call-api.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as moment from 'moment';
+import { ServerRequest } from 'http';
 
 
 @Component({
@@ -21,6 +23,21 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./dashbroad.page.scss'],
 })
 export class DashbroadPage implements OnInit {
+  @ViewChild('barCanvas') barCanvas;
+  barChart: any;
+  @ViewChild('barCanvas2') barCanvas2;
+  barChart2: any;
+  @ViewChild('barCanvas3') barCanvas3;
+  barChart3: any;
+
+
+
+
+  day: any = null;
+  day1: any;
+  amountDay: number = 31;
+  month: any = null;
+  year: any = null;
   netprofitinmonth: number = 0
   total2: number = 0
   total1: number = 0
@@ -52,9 +69,10 @@ export class DashbroadPage implements OnInit {
 
   datarevenueorder: number = 0;
   revenue: number = 0;
+  public numberDay: string[] = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
   public chartLabel: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public chartproductlabel: product[] = []
-  year: any = null
+
   public chartrevenue: number[] = [];
   public chartDataProductInStore: number[] = [];
   public chartDataProductSellInStore: number[] = [];
@@ -71,8 +89,9 @@ export class DashbroadPage implements OnInit {
     public storeApi: StoreService,
     public UserApi: UserService,
     public menu: MenuController,
-    public loadingCtrl: LoadingController,
+    public loadingController: LoadingController,
     private spinner: NgxSpinnerService,
+    public alertController: AlertController
   ) {
     //this.Loading();
 
@@ -95,6 +114,90 @@ export class DashbroadPage implements OnInit {
 
   Loading() {
 
+  }
+
+  clearDayMonthYear() {
+    this.day = null;
+    this.month = null;
+    this.year = null;
+  }
+
+  logDayMonthYear() {
+    const day1 = moment(this.day).format('DD');
+    console.log(day1); // 2019-04-22
+
+    const month1 = moment(this.month).format('MM');
+    console.log(month1); // 2019-04-22
+
+    const year1 = moment(this.year).format('YYYY');
+    console.log(year1); // 2019-04-22
+
+    this.clearDayMonthYear();
+
+    if (year1 == "Invalid date" && month1 == "Invalid date" && day1 == "Invalid date") {
+      const textAlart = "กรุณาเลือก ปี หรือ เดือน หรือ วัน";
+      this.presentAlert(textAlart);
+
+    }
+    else if (year1 != "Invalid date" && month1 == "Invalid date" && day1 == "Invalid date") {
+      // function filter year
+      // this.orderApi.
+      this.presentLoading();
+    }
+    else if (year1 != "Invalid date" && month1 != "Invalid date" && day1 == "Invalid date") {
+      // function filter year month
+      this.presentLoading();
+    }
+    else if (year1 != "Invalid date" && month1 != "Invalid date" && day1 != "Invalid date") {
+      // function filter year month day
+      this.presentLoading();
+    }
+    else if (year1 == "Invalid date" && month1 != "Invalid date" && day1 != "Invalid date") {
+      // alart choose year //ไม่เลือกปีแต่เลือกวัน เดือน
+      const textAlart = "กรุณาเลือก ปี";
+      this.presentAlert(textAlart);
+
+    }
+    else if (year1 == "Invalid date" && month1 == "Invalid date" && day1 != "Invalid date") {
+      // alart choose year month / ไม่เลือกปีไม่เลือกเดือนแต่เลือกวัน
+      const textAlart = "กรุณาเลือก ปี และเดือน";
+      this.presentAlert(textAlart);
+
+    }
+    else if (year1 == "Invalid date" && month1 != "Invalid date" && day1 == "Invalid date") {
+      // alart choose year month / ไม่เลือกปีไม่เลือกวัน แต่เลือกเดือน
+      const textAlart = "กรุณาเลือก ปี";
+      this.presentAlert(textAlart);
+
+    }
+    else if (year1 != "Invalid date" && month1 == "Invalid date" && day1 != "Invalid date") {
+      // alart choose year month / ไม่เลือกเดือน แต่เลือกปี เลือกวัน
+      const textAlart = "กรุณาเลือก เดือน";
+      this.presentAlert(textAlart);
+
+    }
+  }
+
+  async presentAlert(text) {
+    const alert = await this.alertController.create({
+      header: 'แจ้งเตือน !!',
+      message: text,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+    // this.clearDayMonthYear();
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   sumrevenue() {
@@ -137,20 +240,22 @@ export class DashbroadPage implements OnInit {
 
   /////////////////////////////////
   ngOnInit() {
-    this.getyearnow();
-    this.openChart();
-    this.productGetAll();
-    this.getnameproduct();
-    this.getdataorderall()
-    this.showrevennue();
-    this.getalldatastore();
-    this.showexpenditure();
-    this.totalstockinmonth();
-    this.sumrevenue();
-    this.netprofit();
+    // this.getyearnow();
+    // this.openChart();
+    this.barChartMethod();
+    this.barChartMethod2();
+    this.barChartMethod3();
+    // this.productGetAll();
+    // this.getnameproduct();
+    // this.getdataorderall()
+    // this.showrevennue();
+    // this.getalldatastore();
+    // this.showexpenditure();
+    // this.totalstockinmonth();
+    // this.sumrevenue();
+    // this.netprofit();
+    // this.getDataCountBuy();
     //this.loading2();
-
-
 
   }
   showSpinner() {
@@ -158,7 +263,7 @@ export class DashbroadPage implements OnInit {
     this.menu.close('main');
     setTimeout(() => {
       this.spinner.hide();
-     // this.menu.open('main');
+      // this.menu.open('main');
       this.ngOnInit();
       this.ionViewWillEnter();
 
@@ -176,22 +281,55 @@ export class DashbroadPage implements OnInit {
     });
   }
   ionViewWillEnter() {
-    this.loading2();
-    this.getyearnow();
-    this.openChart();
-    this.productGetAll();
-    this.getnameproduct();
-    this.getdataorderall()
-    this.showrevennue();
-    this.getalldatastore();
-    this.showexpenditure();
-    this.totalstockinmonth();
-    this.sumrevenue();
-    this.netprofit();
-
+    // this.loading2();
+    // this.getyearnow();
+    // this.openChart();
+    // this.productGetAll();
+    // this.getnameproduct();
+    // this.getdataorderall()
+    // this.showrevennue();
+    // this.getalldatastore();
+    // this.showexpenditure();
+    // this.totalstockinmonth();
+    // this.sumrevenue();
+    // this.netprofit();
     this.menu.enable(true);
+    // this.getDataCountBuy();
 
+  }
 
+  getDataCountBuy() {
+    const yy = new Date();
+    this.orderApi.getReceiptallyear(yy.getFullYear().toString()).subscribe(it => {
+      this.dataOrederr = it;
+      console.log(this.dataOrederr);
+      for (let index = 0; index < Object.keys(this.dataOrederr).length; index++) {
+        this.datareceipt[index] = this.dataOrederr[index]
+        this.datajson = this.datareceipt[index].dataOrder
+        this.dataorderarray.push(this.datajson)
+      }
+      for (let index = 0; index < this.dataorderarray.length; index++) {
+        var data = Object.values(this.dataorderarray[index])
+        for (let x = 0; x < data.length; x++) {
+          this.datareceipt1 = data[x]
+          this.dataOrderReceipt.push(this.datareceipt1)
+          console.log(this.dataOrderReceipt);
+        }
+      }
+      this.dataorder1 = this.dataOrderReceipt
+      this.dataorder2 = this.dataorder1
+      for (let a = 0; a < Object.keys(this.dataorder2).length; a++) {
+        this.datarevenueorder = this.datarevenueorder + parseInt(this.dataorder2[a].priceOrder)
+      }
+      for (let a = 0; a < Object.keys(this.dataorder2).length; a++) {
+        this.totalsellinmonth = this.totalsellinmonth + parseInt(this.dataorder2[a].amountProduct)
+        this.testsell = this.totalsellinmonth
+        console.log(this.dataorder2[a].amountProduct);
+
+      }
+      // console.log(this.testsell);
+
+    });
 
   }
 
@@ -265,8 +403,11 @@ export class DashbroadPage implements OnInit {
 
   }
   testsell: number = 0
-  onChange(data) {
-    if (data == "ทั้งหมด") {
+
+  onChange(monthparam) {
+    console.log(monthparam);
+
+    if (monthparam == null) {
       this.datastorebydate = [];
       this.dataorderbydate = [];
       this.totalstock = 0
@@ -277,6 +418,8 @@ export class DashbroadPage implements OnInit {
       this.testsell = 0
       this.orderApi.getReceiptallyear(this.year).subscribe(it => {
         this.dataOrederr = it
+        console.log(this.dataOrederr);
+
         for (let index = 0; index < Object.keys(this.dataOrederr).length; index++) {
           this.datareceipt[index] = this.dataOrederr[index]
           this.datajson = this.datareceipt[index].dataOrder
@@ -327,8 +470,10 @@ export class DashbroadPage implements OnInit {
       this.datarevenueorder = 0
       this.totalsellinmonth = 0
       this.testsell = 0
-      this.orderApi.getReceiptlistbydateyear(this.year, data).subscribe(it => {
+      this.orderApi.getReceiptlistbydateyear(this.year, monthparam).subscribe(it => {
         this.dataOrederr = it
+        console.log(this.dataOrederr);
+
         for (let index = 0; index < Object.keys(this.dataOrederr).length; index++) {
           this.datareceipt[index] = this.dataOrederr[index]
           this.datajson = this.datareceipt[index].dataOrder
@@ -359,7 +504,7 @@ export class DashbroadPage implements OnInit {
         this.netprofit()
 
       })
-      this.storeApi.getproductlistbydateyear(this.year, data).subscribe(it => {
+      this.storeApi.getproductlistbydateyear(this.year, monthparam).subscribe(it => {
         for (let index = 0; index < Object.keys(it).length; index++) {
           this.datastorebydate[index] = it[index]
         }
@@ -1169,142 +1314,303 @@ export class DashbroadPage implements OnInit {
 
     });
   }
-  openChart() {
 
-    Chart.defaults.global.defaultFontFamily = "'Prompt','Poppins-Regular'";
-    var ctx = (<any>document.getElementById('mychart')).getContext('2d');
-    var chart = new Chart(ctx, {
-
-      type: 'bar',
+  barChartMethod() {
+    this.barChart = new Chart(this.barCanvas.nativeElement, {
+      type: 'line',
       data: {
-        labels: this.chartproductlabel,
+        labels: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
         datasets: [{
-          data: this.productApi.chartDataProductInStore,
-          label: "จำนวนสินค้านำเข้า",
-          backgroundColor: "#ECF3FF",
-          borderColor: "#3880ff",
-
-          borderWidth: "1",
-          hoverBackgroundColor: "#B6D0FF",
-          hoverBorderColor: "#B6D0FF",
-          // fill: false
-        }, {
-          data: this.productApi.chartDataProductSellInStore,
-          label: "จำนวนสินค้าที่ขาย",
-          borderColor: "#5BC0BE",
-          backgroundColor: "#C3E8E7",
-          borderWidth: "1",
-          hoverBackgroundColor: "#4B9E9C",
-          hoverBorderColor: "#4B9E9C",
-          // fill: false
-        }, {
-          data: this.productApi.chartDataProductTotalInStore,
-          label: "จำนวนสินค้าคงเหลือ",
-          borderColor: "#7044ff",
-          backgroundColor: "#F2EEFF",
-          borderWidth: "1",
-          hoverBackgroundColor: "#CBBBFF",
-          hoverBorderColor: "#CBBBFF",
-          // fill: false
-        }
-        ]
+          label: 'กราฟรายเดือน',
+          data: [200, 50, 30, 15, 20, 34, 44, 50, 62, 72, 41, 36],
+          // backgroundColor: [
+          //   'rgba(255, 99, 132, 0.2)',
+          //   'rgba(54, 162, 235, 0.2)',
+          //   'rgba(255, 206, 86, 0.2)',
+          //   'rgba(75, 192, 192, 0.2)',
+          //   'rgba(153, 102, 255, 0.2)',
+          //   'rgba(255, 159, 64, 0.2)'
+          // ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
       },
       options: {
         scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
 
-            }
-          }]
         }
       }
     });
+  }
 
-    var ctx = (<any>document.getElementById('mychart2')).getContext('2d');
-    var chart = new Chart(ctx, {
+  barChartMethod2() {
+    this.barChart2 = new Chart(this.barCanvas2.nativeElement, {
       type: 'bar',
       data: {
-        labels: this.chartLabel,
-        datasets: [
-          {
-            label: "รายรับ",
-            backgroundColor: "#E9FBF0",
-            borderColor: "#10dc60",
-            borderWidth: "1",
-            hoverBackgroundColor: "#A8F2C5",
-            hoverBorderColor: "#A8F2C5",
-            data: [
-              this.revenuejan,
-              this.revenuefeb,
-              this.revenuemar,
-              this.revenueapril,
-              this.revenuemay,
-              this.revenuejune,
-              this.revenuejuly,
-              this.revenueaug,
-              this.revenueseptember,
-              this.revenueoct,
-              this.revenuenovember,
-              this.revenuedecem],
-          },
-          {
-            label: "รายจ่าย",
-            backgroundColor: "#FDEDED ",
-            borderColor: "#f04141 ",
-            borderWidth: "1",
-            hoverBackgroundColor: "#F9B9B9",
-            hoverBorderColor: "#F9B9B9",
+        labels: ['2019-04-10', '2019-04-20', '2019-05-11', '2019-05-21', '2019-06-12', '2019-06-22'],
+        datasets: [{
+          label: 'กราฟรายวัน',
+          data: [
+            { x: 'ccccc', y: 20 },
+            { x: '2019-04-20', y: 10 },
+            { x: '2019-05-10', y: 3 },
+            { x: '2019-05-20', y: 4 },
+            { x: '2019-06-12', y: 5 },
+            { x: '2019-06-22', y: 6 }
+          ],
+          // backgroundColor: [
+          //   'rgba(255, 99, 132, 0.2)',
+          //   'rgba(54, 162, 235, 0.2)',
+          //   'rgba(255, 206, 86, 0.2)',
+          //   'rgba(75, 192, 192, 0.2)',
+          //   'rgba(153, 102, 255, 0.2)',
+          //   'rgba(255, 159, 64, 0.2)'
+          // ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        },
+        {
+          label: 'กราฟรายวัน2',
+          data: [
+            { x: '2019-04-10', y: 25 },
+            { x: '2019-04-20', y: 15 },
+            { x: '2019-05-10', y: 8 },
+            { x: '2019-05-20', y: 9 },
+            { x: '2019-06-12', y: 10 },
+            { x: '2019-06-22', y: 17 }
+          ],
+          // backgroundColor: [
+          //   'rgba(255, 99, 132, 0.2)',
+          //   'rgba(54, 162, 235, 0.2)',
+          //   'rgba(255, 206, 86, 0.2)',
+          //   'rgba(75, 192, 192, 0.2)',
+          //   'rgba(153, 102, 255, 0.2)',
+          //   'rgba(255, 159, 64, 0.2)'
+          // ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
 
-            data: [
-              this.expenditurejan,
-              this.expenditurefeb,
-              this.expendituremar,
-              this.expenditureapril,
-              this.expendituremay,
-              this.expenditurejune,
-              this.expenditurejuly,
-              this.expenditureaug,
-              this.expenditureseptember,
-              this.expenditureoct,
-              this.expenditurenovember,
-              this.expendituredecember,]
-          },
-          {
-            label: "กำไรสุทธิ",
+        }
+      }
+    });
+  }
 
-            backgroundColor: "#F0F9FD ",
-            borderColor: "#5BC0EB ",
-            borderWidth: "1",
-            hoverBackgroundColor: "#C3E8F7",
-            hoverBorderColor: "#C3E8F7",
+  barChartMethod3() {
+    this.barChart3 = new Chart(this.barCanvas3.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: this.numberDay,
+        datasets: [{
+          // label: 'กราฟรายวัน',
+          data: [
+            23, 12, 15, 18, 60, 45, 14, 36, 31, 28, 10, 9, 55, 40
+          ],
+          // backgroundColor: [
+          //   'rgba(255, 99, 132, 0.2)',
+          //   'rgba(54, 162, 235, 0.2)',
+          //   'rgba(255, 206, 86, 0.2)',
+          //   'rgba(75, 192, 192, 0.2)',
+          //   'rgba(153, 102, 255, 0.2)',
+          //   'rgba(255, 159, 64, 0.2)'
+          // ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        },
+        {
+          // label: 'กราฟรายวัน',
+          data: [
+            { x: '2019-04-10', y: 25 },
+            { x: '2019-04-20', y: 15 },
+            { x: '2019-05-10', y: 8 },
+            { x: '2019-05-20', y: 9 },
+            { x: '2019-06-12', y: 10 },
+            { x: '2019-06-22', y: 17 }
+          ],
+          // backgroundColor: [
+          //   'rgba(255, 99, 132, 0.2)',
+          //   'rgba(54, 162, 235, 0.2)',
+          //   'rgba(255, 206, 86, 0.2)',
+          //   'rgba(75, 192, 192, 0.2)',
+          //   'rgba(153, 102, 255, 0.2)',
+          //   'rgba(255, 159, 64, 0.2)'
+          // ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
 
-            data: [
-              this.revenuejan - this.expenditurejan,
-              this.revenuefeb - this.expenditurefeb,
-              this.revenuemar - this.expendituremar,
-              this.revenueapril - this.expenditureapril,
-              this.revenuemay - this.expendituremay,
-              this.revenuejune - this.expenditurejune,
-              this.revenuejuly - this.expenditurejuly,
-              this.revenueaug - this.expenditureaug,
-              this.revenueseptember - this.expenditureseptember,
-              this.revenueoct - this.expenditureoct,
-              this.revenuenovember - this.expenditurenovember,
-              this.revenuedecem - this.expendituredecember,]
-          }
-        ]
+        }
+      }
+    });
+  }
+
+  openChart() {
+    // Chart.defaults.global.defaultFontFamily = "'Prompt','Poppins-Regular'";
+    var ctx = (<any>document.getElementById('mychart'));
+    var chart = new Chart(ctx, {
+
+      type: 'line',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
       },
       options: {
         scales: {
           yAxes: [{
             ticks: {
               beginAtZero: true
+
             }
           }]
         }
       }
     });
+
+    // var ctx = (<any>document.getElementById('mychart2')).getContext('2d');
+    // var chart = new Chart(ctx, {
+    //   type: 'bar',
+    //   data: {
+    //     labels: this.chartLabel,
+    //     datasets: [
+    //       {
+    //         label: "รายรับ",
+    //         backgroundColor: "#E9FBF0",
+    //         borderColor: "#10dc60",
+    //         borderWidth: "1",
+    //         hoverBackgroundColor: "#A8F2C5",
+    //         hoverBorderColor: "#A8F2C5",
+    //         data: [
+    //           this.revenuejan,
+    //           this.revenuefeb,
+    //           this.revenuemar,
+    //           this.revenueapril,
+    //           this.revenuemay,
+    //           this.revenuejune,
+    //           this.revenuejuly,
+    //           this.revenueaug,
+    //           this.revenueseptember,
+    //           this.revenueoct,
+    //           this.revenuenovember,
+    //           this.revenuedecem],
+    //       },
+    //       {
+    //         label: "รายจ่าย",
+    //         backgroundColor: "#FDEDED ",
+    //         borderColor: "#f04141 ",
+    //         borderWidth: "1",
+    //         hoverBackgroundColor: "#F9B9B9",
+    //         hoverBorderColor: "#F9B9B9",
+
+    //         data: [
+    //           this.expenditurejan,
+    //           this.expenditurefeb,
+    //           this.expendituremar,
+    //           this.expenditureapril,
+    //           this.expendituremay,
+    //           this.expenditurejune,
+    //           this.expenditurejuly,
+    //           this.expenditureaug,
+    //           this.expenditureseptember,
+    //           this.expenditureoct,
+    //           this.expenditurenovember,
+    //           this.expendituredecember,]
+    //       },
+    //       {
+    //         label: "กำไรสุทธิ",
+
+    //         backgroundColor: "#F0F9FD ",
+    //         borderColor: "#5BC0EB ",
+    //         borderWidth: "1",
+    //         hoverBackgroundColor: "#C3E8F7",
+    //         hoverBorderColor: "#C3E8F7",
+
+    //         data: [
+    //           this.revenuejan - this.expenditurejan,
+    //           this.revenuefeb - this.expenditurefeb,
+    //           this.revenuemar - this.expendituremar,
+    //           this.revenueapril - this.expenditureapril,
+    //           this.revenuemay - this.expendituremay,
+    //           this.revenuejune - this.expenditurejune,
+    //           this.revenuejuly - this.expenditurejuly,
+    //           this.revenueaug - this.expenditureaug,
+    //           this.revenueseptember - this.expenditureseptember,
+    //           this.revenueoct - this.expenditureoct,
+    //           this.revenuenovember - this.expenditurenovember,
+    //           this.revenuedecem - this.expendituredecember,]
+    //       }
+    //     ]
+    //   },
+    //   options: {
+    //     scales: {
+    //       yAxes: [{
+    //         ticks: {
+    //           beginAtZero: true
+    //         }
+    //       }]
+    //     }
+    //   }
+    // });
   }
 
 

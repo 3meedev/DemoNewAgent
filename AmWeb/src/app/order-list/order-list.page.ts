@@ -18,10 +18,6 @@ import { ModalController } from '@ionic/angular';
 
 })
 
-
-
-
-
 export class OrderListPage implements OnInit {
 
   dataOrder: Order;

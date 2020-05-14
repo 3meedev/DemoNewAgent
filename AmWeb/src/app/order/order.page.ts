@@ -16,7 +16,8 @@ import { OrderService } from '../service/order.service';
 export class OrderPage implements OnInit {
   order: FormGroup
   dataProduct: any;
-  data1: {};
+  data1:any;
+  data:any
   dataorder: Order
   summ: any
   sum: any;

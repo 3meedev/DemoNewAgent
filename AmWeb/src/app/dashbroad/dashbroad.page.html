@@ -1,406 +1,100 @@
-<style>
-  #loader {
-    transition: all 0.3s ease-in-out;
-    opacity: 1;
-    visibility: visible;
-    position: fixed;
-    height: 100vh;
-    width: 100%;
-    background: #fff;
-    z-index: 90000;
-  }
-
-  #loader.fadeOut {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .spinner {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: calc(50% - 20px);
-    left: calc(50% - 20px);
-    background-color: #333;
-    border-radius: 100%;
-    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
-    animation: sk-scaleout 1.0s infinite ease-in-out;
-  }
-
-  @-webkit-keyframes sk-scaleout {
-    0% {
-      -webkit-transform: scale(0)
-    }
-
-    100% {
-      -webkit-transform: scale(1.0);
-      opacity: 0;
-    }
-  }
-
-  @keyframes sk-scaleout {
-    0% {
-      -webkit-transform: scale(0);
-      transform: scale(0);
-    }
-
-    100% {
-      -webkit-transform: scale(1.0);
-      transform: scale(1.0);
-      opacity: 0;
-    }
-  }
-</style>
-<ngx-spinner bdOpacity=1000 bdColor="#333" size="medium" color="#00B0FF" type="square-jelly-box" [fullScreen]="true">
-    <p style="color: white"> Loading... </p>
-  </ngx-spinner>
- 
- 
-
-<ion-header>
-  <ion-split-pane  contentId="main"   >
-
-  <ion-menu  menuId="main">
-      
-    <ion-content>
-     
-      <!-- <ion-list class="color">
-        <ion-menu-toggle >
-          <ion-item lines="none" >
-            <ion-icon slot="start" ></ion-icon>
-            <ion-label style="font-family: Prompt;">
-              555
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list> -->
-    </ion-content>
-   
-  </ion-menu>
-  </ion-split-pane>
-  <ion-router-outlet  id="main" main></ion-router-outlet>
-
-
-  <!-- <div id='loader' >
-    <div  class="spinner"></div>
-  </div> -->
-
-  <!-- <div class="sk-cube-grid">
-    <div class="sk-cube sk-cube1"></div>
-    <div class="sk-cube sk-cube2"></div>
-    <div class="sk-cube sk-cube3"></div>
-    <div class="sk-cube sk-cube4"></div>
-    <div class="sk-cube sk-cube5"></div>
-    <div class="sk-cube sk-cube6"></div>
-    <div class="sk-cube sk-cube7"></div>
-    <div class="sk-cube sk-cube8"></div>
-    <div class="sk-cube sk-cube9"></div>
-  </div> -->
-
-  <!-- <script>
-    window.addEventListener('load', function load() {
-      const loader = document.getElementById('loader');
-      setTimeout(function() {
-        loader.classList.add('fadeOut');
-      }, 300);
-    });
-  </script> -->
-
-  <!-- <div id='loader'>
-    <div class="spinner"></div>
-  </div> -->
-
-
-  <ion-toolbar text-center>
-    <ion-button slot="start" fill="clear">
-         <ion-menu-button></ion-menu-button>
-    </ion-button>
- 
-
-    <ion-grid>
-      <ion-row>
-        <!-- <ion-col>
-          <ion-button class="btnTab" (click)="closeTab()" *ngIf="isShowCloseTab == true">
-            <ion-icon size="large" name="close-circle-outline"></ion-icon>
-          </ion-button>
-          <ion-button class="btnTab" (click)="openTab()" *ngIf="isShowOpenTab == false">
-            <ion-icon size="large" name="menu"></ion-icon>
-          </ion-button>
-        </ion-col> -->
-        <ion-col size="2" class="ion-align-self-start" style="padding-bottom: 0;padding-top: 0;">
-
-          <label> เลือกปีที่ต้องการ</label>
-          <select (ionChange)="onChangyear(year)" [(ngModel)]="year">
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-          </select>
-        </ion-col>
-        <ion-col size="2" *ngIf="year != null">
-
-          <label> เลือกเดือนที่ต้องการ</label>
-          <select (ionChange)="onChange(data)" [(ngModel)]="data">
-            <option value="1">มกราคม</option>
-            <option value="2">กุมภาพันธ์</option>
-            <option value="3">มีนาคม</option>
-            <option value="4">เมษายน</option>
-            <option value="5">พฤษภาคม</option>
-            <option value="6">มิถุนายน</option>
-            <option value="7">กรกฎาคม</option>
-            <option value="8">สิงหาคม</option>
-            <option value="9">กันยายน</option>
-            <option value="10">ตุลาคม</option>
-            <option value="11">พฤศจิกายน</option>
-            <option value="12">ธันวาคม</option>
-          </select>
-        </ion-col>
-
-
-        <ion-col size="2">
-          <ion-select placeholder="เลือกปีที่ต้องการ" (ionChange)="onChangyear(year)" [(ngModel)]="year">
-            <ion-select-option value="2020">2020</ion-select-option>
-            <ion-select-option value="2021">2021</ion-select-option>
-            <ion-select-option value="2022">2022</ion-select-option>
-            <ion-select-option value="2023">2023</ion-select-option>
-          </ion-select>
-        </ion-col>
-        <ion-col *ngIf="year != null" size="2">
-          <ion-select placeholder="เลือกเดือนที่ต้องการ" (ionChange)="onChange(data)" [(ngModel)]="data">
-            <ion-select-option>ทั้งหมด</ion-select-option>
-            <ion-select-option value="1">มกราคม</ion-select-option>
-            <ion-select-option value="2">กุมภาพันธ์</ion-select-option>
-            <ion-select-option value="3">มีนาคม</ion-select-option>
-            <ion-select-option value="4">เมษายน</ion-select-option>
-            <ion-select-option value="5">พฤษภาคม</ion-select-option>
-            <ion-select-option value="6">มิถุนายน</ion-select-option>
-            <ion-select-option value="7">กรกฎาคม</ion-select-option>
-            <ion-select-option value="8">สิงหาคม</ion-select-option>
-            <ion-select-option value="9">กันยายน</ion-select-option>
-            <ion-select-option value="10">ตุลาคม</ion-select-option>
-            <ion-select-option value="11">พฤศจิกายน</ion-select-option>
-            <ion-select-option value="12">ธันวาคม</ion-select-option>
-          </ion-select>
-        </ion-col>
-
-
-
-
-
-
-      </ion-row>
-    </ion-grid>
-
-    <ion-icon size="large" slot="end" name="exit" color="danger" id="aaaa"></ion-icon>
-
+<ion-header  style="padding-bottom: 6px;">
+  <ion-toolbar  text-center>
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-row class="ion-text-center">
+   
+    <ion-col size="2">
+      <ion-card class="ion-text-center" style="background-color: rgb(225, 235, 255);">
+        <ion-card-header>
+          <ion-card-title color="primary">รายรับทั้งหมด</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-chip>
+            <ion-label color="primary">0 THB</ion-label>
+          </ion-chip>          
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+   
+    <ion-col size="2">
+      <ion-card class="ion-text-center" style="background-color: rgb(225, 235, 255);">
+        <ion-card-header>
+          <ion-card-title color="primary">รายจ่ายทั้งหมด</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-chip>
+            <ion-label color="primary">0 THB</ion-label>
+          </ion-chip>          
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  
+    <ion-col size="2">
+      <ion-card class="ion-text-center" style="background-color: rgb(225, 235, 255);">
+        <ion-card-header>
+          <ion-card-title color="primary">กำไรขั้นต้น</ion-card-title>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <ion-chip>
+            <ion-label color="primary">0 THB</ion-label>
+          </ion-chip>          
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
 
+  </ion-row>
 
-
-  <!-- <ion-item>
-    <ion-select placeholder="เลือกปีที่ต้องการ" (ionChange)="onChangyear(year)" [(ngModel)]="year">
-      <ion-select-option value="2020">2020</ion-select-option>
-      <ion-select-option value="2021">2021</ion-select-option>
-      <ion-select-option value="2022">2022</ion-select-option>
-      <ion-select-option value="2023">2023</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-item *ngIf="year != null">
-    <ion-select placeholder="เลือกเดือนที่ต้องการ" (ionChange)="onChange(data)" [(ngModel)]="data">
-      <ion-select-option>ทั้งหมด</ion-select-option>
-      <ion-select-option value="1">มกราคม</ion-select-option>
-      <ion-select-option value="2">กุมภาพันธ์</ion-select-option>
-      <ion-select-option value="3">มีนาคม</ion-select-option>
-      <ion-select-option value="4">เมษายน</ion-select-option>
-      <ion-select-option value="5">พฤษภาคม</ion-select-option>
-      <ion-select-option value="6">มิถุนายน</ion-select-option>
-      <ion-select-option value="7">กรกฎาคม</ion-select-option>
-      <ion-select-option value="8">สิงหาคม</ion-select-option>
-      <ion-select-option value="9">กันยายน</ion-select-option>
-      <ion-select-option value="10">ตุลาคม</ion-select-option>
-      <ion-select-option value="11">พฤศจิกายน</ion-select-option>
-      <ion-select-option value="12">ธันวาคม</ion-select-option>
-    </ion-select>
-  </ion-item> -->
-  <ion-grid>
-
-
+  <ion-card>
     <ion-row>
       <ion-col>
-        <ion-card class="cardborder">
-          <ion-card-header text-center class="ResultProductGet">
-            <ion-row>
-              <ion-col>
-
-                <h6 class="lh-1">จำนวนสินค้านำเข้า</h6>
-
-              </ion-col>
-            </ion-row>
-          </ion-card-header>
-          <ion-card-content class="box-content">
-            <ion-row>
-              <ion-col text-center>
-                <ion-chip color="primary">
-                  <ion-label color="primary">{{totalbuyproduct | number}}</ion-label>
-                </ion-chip>
-
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
+        <ion-item>
+          <ion-label>ปี</ion-label>
+          <ion-datetime displayFormat="YYYY" [(ngModel)]="year" placeholder="Select Date"></ion-datetime>
+        </ion-item>
       </ion-col>
 
       <ion-col>
-        <ion-card class="cardborder">
-          <ion-card-header text-center class="ResultProductSell">
-            <ion-row>
-              <ion-col>
-
-                <h6>จำนวนสินค้าที่ขาย</h6>
-
-              </ion-col>
-            </ion-row>
-          </ion-card-header>
-          <ion-card-content class="box-content">
-            <ion-row>
-              <ion-col text-center>
-                <ion-chip color="secondary">
-                  <ion-label  style="color: #5BC0BE;">{{testsell | number}}</ion-label>
-                </ion-chip>
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
+        <ion-item>
+          <ion-label>เดือน</ion-label>
+          <ion-datetime monthValues= "1,2,3,4,5,6,7,8,9,10,11,12" displayFormat="MM" [(ngModel)]="month" placeholder="Select Date"></ion-datetime>
+        </ion-item>
       </ion-col>
+
       <ion-col>
-        <ion-card class="cardborder">
-          <ion-card-header text-center class="ResultProductTotal">
-            <ion-row>
-              <ion-col>
-                <h6>จำนวนสินค้าคงเหลือ</h6>
-              </ion-col>
-            </ion-row>
-          </ion-card-header>
-          <ion-card-content class="box-content">
-            <ion-row>
-              <ion-col text-center>
-                <ion-chip color="tertiary">
-                  <ion-label color="tertiary">{{totalstock | number}}</ion-label>
-                </ion-chip>
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
+        <ion-item>
+          <ion-label>วัน</ion-label>
+          <ion-datetime displayFormat="DD" [(ngModel)]="day" placeholder="Select Date"></ion-datetime>
+        </ion-item>
       </ion-col>
+
       <ion-col>
-        <ion-card class="cardborder">
-          <ion-card-header text-center class="Total">
-            <ion-row>
-              <ion-col>
-                <h6> รายรับ</h6>
-              </ion-col>
-            </ion-row>
-          </ion-card-header>
-          <ion-card-content class="box-content">
-            <ion-row>
-              <ion-col text-center>
-                <ion-chip color="success">
-                  <ion-label color="success">{{datarevenueorder | number}} THB</ion-label>
-                </ion-chip>
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col>
-        <ion-card class="cardborder">
-          <ion-card-header text-center class="Sell">
-            <ion-row>
-              <ion-col>
-                <h6>รายจ่าย</h6>
-              </ion-col>
-            </ion-row>
-          </ion-card-header>
-          <ion-card-content class="box-content">
-            <ion-row>
-              <ion-col text-center>
-                <ion-chip color="danger">
-                  <ion-label color="danger">{{expenditure | number}} THB</ion-label>
-                </ion-chip>
-
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col>
-        <ion-card class="cardborder">
-          <ion-card-header text-center class="Result">
-            <ion-row>
-              <ion-col *ngIf="expenditure < datarevenueorder">
-                <h6 class="color1">กำไรสุทธิ</h6>
-              </ion-col>
-              <ion-col *ngIf="expenditure > datarevenueorder">
-                <h6 class="color">กำไรสุทธิ</h6>
-              </ion-col>
-              <ion-col *ngIf="expenditure == datarevenueorder">
-                <h6 class="color2">กำไรสุทธิ</h6>
-              </ion-col>
-
-
-            </ion-row>
-          </ion-card-header>
-          <ion-card-content class="box-content">
-            <ion-row>
-              <ion-col text-center>
-                <ion-chip color="success" *ngIf="expenditure < datarevenueorder">
-                  <ion-label color="success">{{expenditure | number}} THB</ion-label>
-                </ion-chip>
-                <ion-chip color="danger" *ngIf="expenditure > datarevenueorder">
-                  <ion-label color="danger">{{netprofitinmonth | number}} THB</ion-label>
-                </ion-chip>
-                <ion-chip color="secondary" *ngIf="expenditure == datarevenueorder">
-                  <ion-label color="secondary">{{netprofitinmonth | number}} THB</ion-label>
-                </ion-chip>
-
-
-
-                <!-- <ion-label *ngIf="expenditure < datarevenueorder" color="success">
-                <h2>{{netprofitinmonth | number}} THB</h2>
-              </ion-label>
-              <ion-label *ngIf="expenditure > datarevenueorder" color="danger">
-                <h2>{{netprofitinmonth | number}} THB</h2>
-              </ion-label>
-              <ion-label *ngIf="expenditure == datarevenueorder">
-                <h2>{{netprofitinmonth | number}} THB</h2>
-              </ion-label> -->
-              </ion-col>
-            </ion-row>
-          </ion-card-content>
-        </ion-card>
+        <ion-button (click)="logDayMonthYear()">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
       </ion-col>
     </ion-row>
-  </ion-grid>
-
-
-  <ion-grid>
-
 
     <ion-row>
-      <ion-col>
-        <ion-card class="cardborder">
-          <canvas id="mychart"></canvas>
-        </ion-card>
-      </ion-col>
-      <ion-col>
-        <ion-card class="cardborder">
-          <canvas id="mychart2"></canvas>
-        </ion-card>
-      </ion-col>
+      <canvas #barCanvas></canvas>
     </ion-row>
-  </ion-grid>
 
+    <ion-row>
+      <canvas #barCanvas2></canvas>
+    </ion-row>
+
+    <ion-row>
+      <canvas #barCanvas3></canvas>
+    </ion-row>
+  </ion-card>
+     
 </ion-content>

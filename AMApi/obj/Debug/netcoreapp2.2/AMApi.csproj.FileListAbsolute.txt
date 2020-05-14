@@ -12,3 +12,17 @@ D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.AssemblyInfo.cs
 D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.RazorTargetAssemblyInfo.cache
 D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.dll
 D:\ProjectAM\AMApi\obj\Debug\netcoreapp2.2\AMApi.pdb
+D:\DemoNewAgent\AMApi\bin\Debug\netcoreapp2.2\AMApi.deps.json
+D:\DemoNewAgent\AMApi\bin\Debug\netcoreapp2.2\AMApi.runtimeconfig.json
+D:\DemoNewAgent\AMApi\bin\Debug\netcoreapp2.2\AMApi.runtimeconfig.dev.json
+D:\DemoNewAgent\AMApi\bin\Debug\netcoreapp2.2\AMApi.dll
+D:\DemoNewAgent\AMApi\bin\Debug\netcoreapp2.2\AMApi.pdb
+D:\DemoNewAgent\AMApi\obj\Debug\netcoreapp2.2\AMApi.csprojAssemblyReference.cache
+D:\DemoNewAgent\AMApi\obj\Debug\netcoreapp2.2\AMApi.csproj.CoreCompileInputs.cache
+D:\DemoNewAgent\AMApi\obj\Debug\netcoreapp2.2\AMApi.RazorAssemblyInfo.cache
+D:\DemoNewAgent\AMApi\obj\Debug\netcoreapp2.2\AMApi.RazorAssemblyInfo.cs
+D:\DemoNewAgent\AMApi\obj\Debug\netcoreapp2.2\AMApi.AssemblyInfoInputs.cache
+D:\DemoNewAgent\AMApi\obj\Debug\netcoreapp2.2\AMApi.AssemblyInfo.cs
+D:\DemoNewAgent\AMApi\obj\Debug\netcoreapp2.2\AMApi.RazorTargetAssemblyInfo.cache
+D:\DemoNewAgent\AMApi\obj\Debug\netcoreapp2.2\AMApi.dll
+D:\DemoNewAgent\AMApi\obj\Debug\netcoreapp2.2\AMApi.pdb
