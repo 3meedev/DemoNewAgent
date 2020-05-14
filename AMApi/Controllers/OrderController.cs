@@ -85,7 +85,6 @@ namespace AMApi.Controllers
             var textsub = text.Substring(0, 1).ToString();
             var id = Guid.NewGuid().ToString();
             var textid = text + "-" + id.Substring(0, 4);
-
             // var split = id.Split("",5).ToString();
             // var textID = text + split.ToString() ;
             var item = new Order
