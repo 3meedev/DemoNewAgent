@@ -40,7 +40,7 @@
     "jw-angular-pagination": "^1.1.0",
     "ngx-pagination": "^5.0.0",
     "ngx-spinner": "^7.2.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
